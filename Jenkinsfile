@@ -1,10 +1,11 @@
+@Library("csuite-v2-jenkins-lib") _
+
 pipeline {
     agent {
         kubernetes {
             cloud 'kubernetes-csuite'
             label 'jenkins-builder'
-            //yaml libraryResource('podTemplates/java-openjdk21.yaml')
-            yaml readFile('podTemplates/java-openjdk21.yaml')
+            yaml libraryResource('podTemplates/java-openjdk21.yaml')
         }
     }
 
