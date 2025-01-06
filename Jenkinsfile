@@ -3,7 +3,8 @@ pipeline {
         kubernetes {
             cloud 'kubernetes-csuite'
             label 'jenkins-builder'
-            yaml libraryResource('podTemplates/java-openjdk21.yaml')
+            //yaml libraryResource('podTemplates/java-openjdk21.yaml')
+            yaml readFile('podTemplates/java-openjdk21.yaml')
         }
     }
 
