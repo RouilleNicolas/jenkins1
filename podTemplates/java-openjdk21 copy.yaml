@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: Pod
+spec:
+  securityContext:
+    privileged: false
+    runAsUser: 1000 # user jenkins
+    fsGroup: 112 # group docker
+  tolerations:
+    - key: type
+      effect: NoSchedule
+      operator: Equal
+      value: jenkins-builder
+  nodeSelector:
+    type: jenkins-builder
+
+  containers:
+  
+  - name: crane
+    image: gcr.io/sandbox-csuite/csuite/gcrane:develop
+    imagePullPolicy: Always
+    args:
+      - cat
+    command:
+      - /busybox/sh
+      - -c
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /home/jenkins/.config/gcloud/jenkins-serviceaccount.json
+    tty: true
+    volumeMounts:
+    - mountPath: /home/jenkins/.config/gcloud
+      name: jenkins-gcloud-serviceaccount
+    resources:
+      requests:
+        ephemeral-storage: 1Gi
+
+
+  - name: openjdk
+    image: gcr.io/sandbox-csuite/csuite/builder-openjdk21:bookworm
+    imagePullPolicy: Always
+    args:
+      - cat
+    command:
+      - /bin/sh
+      - -c
+    tty: true
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /home/jenkins/.config/gcloud/jenkins-serviceaccount.json
+      - name: _JAVA_OPTIONS
+        value: -XX:+UseContainerSupport -XX:MaxRAMPercentage=60.0
+      # nexus username et password sont utilisées par les helmfile de tests e2e pour récupérer l'agent jacoco
+      # - name: NEXUS_USERNAME
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: nexus-jenkins
+      #       key: user
+      # - name: NEXUS_PASSWORD
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: nexus-jenkins
+      #       key: password
+    resources:
+      limits:
+        cpu: "8"
+        memory: 12Gi
+      requests:
+        cpu: 4
+        memory: 10Gi
+        ephemeral-storage: 2Gi
+    volumeMounts:
+    - mountPath: /tmp
+      name: tmpfs
+    - mountPath: /home/jenkins/.config/gcloud
+      name: jenkins-gcloud-serviceaccount
+
+  volumes:
+  - emptyDir:
+      medium: Memory
+    name: tmpfs
+  - emptyDir: {}
+    name: gcloud-config
+  - secret:
+      secretName: jenkins-gcloud-serviceaccount
+      items:
+      - key: jenkins-serviceaccount.json
+        mode: 511
+        path: jenkins-serviceaccount.json
+    name: jenkins-gcloud-serviceaccount
