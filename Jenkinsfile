@@ -1,31 +1,58 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            cloud 'kubernetes-csuite'
+            label 'jenkins-builder'
+            yaml libraryResource('podTemplates/java-openjdk21.yaml')
+        }
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '50'))
+        timestamps()
+        disableConcurrentBuilds()
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Étape de construction en cours...'
-                // Par exemple : npm run build
+                container('openjdk') {
+                    echo 'Étape de construction en cours...'
+                    echo 'Exécution de la construction avec l’image OpenJDK 21.'
+                    // Par exemple : sh './gradlew build'
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Étape de test en cours...'
-                // Par exemple : npm test
-
+                container('openjdk') {
+                    echo 'Étape de test en cours...'
+                    echo 'Exécution des tests avec l’image OpenJDK 21.'
+                    // Par exemple : sh './gradlew test'
+                }
+            }
+        }
+        stage('Crane') {
+            steps {
+                container('crane') {
+                    echo 'Étape utilisant le conteneur Crane...'
+                    echo 'Crane peut être utilisé pour gérer les images container, par exemple pour des validations ou transferts.'
+                    // Par exemple : sh 'crane ls <image>'
+                }
             }
         }
         stage('Pause') {
             steps {
-                echo 'Pause de 60 secondes avant le déploiement...'
+                echo 'Pause de 60 secondes avant de continuer...'
                 sleep(time: 60, unit: 'SECONDS')
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Étape de déploiement en cours...'
-                // Par exemple : sh 'make deploy'
-            }
+    }
+
+    post {
+        always {
+            echo 'Nettoyage du workspace...'
+            deleteDir()
         }
     }
 }
