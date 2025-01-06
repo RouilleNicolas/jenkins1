@@ -1,4 +1,4 @@
-@Library("csuite-v2-jenkins-lib") _
+@Library('csuite-v2-jenkins-lib@main') _
 
 pipeline {
     agent {
