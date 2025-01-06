@@ -52,7 +52,13 @@ pipeline {
     post {
         always {
             echo 'Nettoyage du workspace...'
-            deleteDir()
+            script {
+                // Exécution dans le contexte d'un agent
+                node {
+                    deleteDir()
+                }
+            }
         }
     }
+
 }
