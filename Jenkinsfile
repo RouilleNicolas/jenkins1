@@ -13,7 +13,11 @@ pipeline {
                 echo 'Étape de test en cours...'
                 // Par exemple : npm test
 
-                echo 'Pause de 60 secondes...'
+            }
+        }
+        stage('Pause') {
+            steps {
+                echo 'Pause de 60 secondes avant le déploiement...'
                 sleep(time: 60, unit: 'SECONDS')
             }
         }
