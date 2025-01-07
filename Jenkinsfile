@@ -5,8 +5,10 @@ pipeline {
         kubernetes {
             cloud 'kubernetes-csuite'
             label 'jenkins-builder'
+            idleMinutes 5 // Le pod restera en vie 5 minutes après l'exécution
+            instanceCap 3
             yaml libraryResource('podTemplates/java-openjdk21.yaml')
-            idleMinutes(5) // Le pod restera en vie 5 minutes après l'exécution
+            retries 2
         }
     }
 
@@ -55,16 +57,16 @@ pipeline {
         }
     }
 
-    // post {
-    //     always {
-    //         echo 'Nettoyage du workspace...'
-    //         script {
-    //             // Exécution dans le contexte d'un agent
-    //             node {
-    //                 deleteDir()
-    //             }
-    //         }
-    //     }
-    // }
+    post {
+        always {
+            echo 'Nettoyage du workspace...'
+            script {
+                // Exécution dans le contexte d'un agent
+                node {
+                    deleteDir()
+                }
+            }
+        }
+    }
 
 }
