@@ -5,7 +5,7 @@ pipeline {
         kubernetes {
             cloud 'kubernetes-csuite'
             label 'jenkins-builder'
-            idleMinutes 5 // Le pod restera en vie 5 minutes après l'exécution
+            idleMinutes 15 // Le pod restera en vie 15 minutes après l'exécution
             instanceCap 3
             yaml libraryResource('podTemplates/java-openjdk21.yaml')
             retries 2
@@ -37,6 +37,7 @@ pipeline {
 
                     //home/jenkins/agent/workspace/
                     sh 'mkdir -p logs' 
+                    sh 'echo > logs/test.txt' 
                 }
             }
         }
