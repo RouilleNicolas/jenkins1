@@ -31,6 +31,7 @@ pipeline {
                     echo 'Étape de test en cours...'
                     echo 'Exécution des tests avec l’image OpenJDK 21.'
                     // Par exemple : sh './gradlew test'
+                    mkdir logs
                 }
             }
         }
@@ -51,16 +52,16 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo 'Nettoyage du workspace...'
-            script {
-                // Exécution dans le contexte d'un agent
-                node {
-                    deleteDir()
-                }
-            }
-        }
-    }
+    // post {
+    //     always {
+    //         echo 'Nettoyage du workspace...'
+    //         script {
+    //             // Exécution dans le contexte d'un agent
+    //             node {
+    //                 deleteDir()
+    //             }
+    //         }
+    //     }
+    // }
 
 }
