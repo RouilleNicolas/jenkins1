@@ -37,7 +37,7 @@ pipeline {
 
                     //home/jenkins/agent/workspace/
                     sh 'mkdir -p logs' 
-                    sh 'echo > logs/test.txt' 
+                    sh 'echo test > logs/test.txt' 
                 }
             }
         }
