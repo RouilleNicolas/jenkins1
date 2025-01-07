@@ -6,6 +6,7 @@ pipeline {
             cloud 'kubernetes-csuite'
             label 'jenkins-builder'
             yaml libraryResource('podTemplates/java-openjdk21.yaml')
+            idleMinutes(5) // Le pod restera en vie 5 minutes après l'exécution
         }
     }
 
@@ -31,6 +32,8 @@ pipeline {
                     echo 'Étape de test en cours...'
                     echo 'Exécution des tests avec l’image OpenJDK 21.'
                     // Par exemple : sh './gradlew test'
+
+                    //home/jenkins/agent/workspace/
                     sh 'mkdir -p logs' 
                 }
             }
