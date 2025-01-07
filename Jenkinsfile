@@ -31,7 +31,7 @@ pipeline {
                     echo 'Étape de test en cours...'
                     echo 'Exécution des tests avec l’image OpenJDK 21.'
                     // Par exemple : sh './gradlew test'
-                    mkdir logs
+                    sh 'mkdir -p logs' 
                 }
             }
         }
