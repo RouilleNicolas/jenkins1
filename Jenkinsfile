@@ -14,10 +14,11 @@ kind: Pod
 spec:
   containers:
   - name: node
-    image: node:18.19.1
+    image: docker.io/library/node:20.11.1
     command:
     - cat
     tty: true
+    imagePullPolicy: Always
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
