@@ -64,7 +64,7 @@ spec:
                     sh '''
                         NODE_VERSION=$(node --version)
                         echo "Node.js version: $NODE_VERSION"
-                        if [[ "$NODE_VERSION" != "v20.11.1" ]]; then
+                        if [ "$NODE_VERSION" != "v20.11.1" ]; then
                             echo "Error: Expected Node.js v20.11.1 but got $NODE_VERSION"
                             exit 1
                         fi
