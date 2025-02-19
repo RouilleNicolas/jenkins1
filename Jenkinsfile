@@ -62,11 +62,18 @@ spec:
             steps {
                 container('node') {
                     sh '''
-                        echo "Node.js version:"
-                        node --version
+                        echo "Container info:"
+                        cat /etc/os-release
                         
-                        echo "Installing dependencies..."
-                        # First try with frozen lockfile
+                        echo "\nNode.js version:"
+                        node --version
+                        which node
+                        ls -l $(which node)
+                        
+                        echo "\nContainer environment:"
+                        env | grep PATH
+                        
+                        echo "\nInstalling dependencies..."
                         yarn install --frozen-lockfile || {
                             echo "Lockfile needs updating, running normal install..."
                             yarn install
