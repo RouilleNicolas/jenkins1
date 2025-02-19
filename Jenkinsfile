@@ -17,6 +17,7 @@ pipeline {
         DOCKER_REPO = "gcr.io/sandbox-csuite/csuite/angular-csuitev2"
         DOCKER_TAG = "${env.BRANCH_NAME == 'master' ? 'latest' : env.BRANCH_NAME}"
         DOCKER_TAG_COMMIT = "${env.BRANCH_NAME}-${env.GIT_COMMIT.take(7)}"
+        APP_WORKSPACE = "farming-suite-web"
     }
     
     options {
@@ -26,84 +27,20 @@ pipeline {
     }
 
     stages {
-        stage('Test Node Container') {
-            steps {
-                container('node') {
-                    sh '''
-                        echo "Testing Node container..."
-                        node --version
-                        npm --version
-                        yarn --version
-                    '''
-                }
-            }
-        }
-
-        stage('Test Sonar Scanner') {
-            steps {
-                container('sonar-scanner') {
-                    sh '''
-                        echo "Testing Sonar Scanner container..."
-                        sonar-scanner --version
-                    '''
-                }
-            }
-        }
-
-        stage('Test Kaniko') {
-            steps {
-                container('kaniko') {
-                    sh '''
-                        echo "Testing Kaniko container..."
-                        /kaniko/executor version
-                    '''
-                }
-            }
-        }
-
-        stage('Test Crane') {
-            steps {
-                container('crane') {
-                    sh '''
-                        echo "Testing Crane container..."
-                        /ko-app/gcrane version || true
-                    '''
-                }
-            }
-        }
-
-        stage('Test Gcloud-Kubectl') {
-            steps {
-                container('gcloud-kubectl') {
-                    sh '''
-                        echo "Testing Gcloud-Kubectl container..."
-                        kubectl version --client
-                        gcloud version
-                    '''
-                }
-            }
-        }
-
-        stage('Test Workspace') {
-            steps {
-                container('node') {
-                    sh '''
-                        echo "Testing workspace permissions..."
-                        mkdir -p test-angular
-                        cd test-angular
-                        echo "console.log('test')" > test.js
-                        node test.js
-                    '''
-                }
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 container('node') {
                     sh '''
                         echo "Installing dependencies..."
+                        # Afficher le contenu du répertoire pour debug
+                        ls -la
+                        
+                        # Installer les dépendances
                         yarn install
+                        
+                        # Vérifier l'installation de nx
+                        echo "Checking nx installation..."
+                        ./node_modules/.bin/nx --version || npm install -g nx
                     '''
                 }
             }
@@ -114,7 +51,11 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        npx nx run farming-suite-web:build
+                        # Afficher la structure du projet
+                        ls -la
+                        
+                        # Build avec nx
+                        ./node_modules/.bin/nx build ${APP_WORKSPACE} --configuration=production
                     '''
                 }
             }
