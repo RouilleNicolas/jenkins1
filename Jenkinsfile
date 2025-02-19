@@ -4,14 +4,15 @@ pipeline {
     agent {
         kubernetes {
             cloud 'kubernetes-csuite'
-            label 'jenkins-builder'
-            idleMinutes 15 // Le pod restera en vie 15 minutes après l'exécution
+            defaultContainer 'jnlp'
+            label "node"
+            idleMinutes 30
             instanceCap 3
-            yaml libraryResource('podTemplates/java-openjdk21.yaml')
+            yaml libraryResource('podTemplates/angular.yaml')
             retries 2
         }
     }
-
+    
     options {
         buildDiscarder(logRotator(numToKeepStr: '50'))
         timestamps()
@@ -19,57 +20,82 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Test Node Container') {
             steps {
-                container('openjdk') {
-                    echo 'Étape de construction en cours...'
-                    echo 'Exécution de la construction avec l’image OpenJDK 21.'
-                    // Par exemple : sh './gradlew build'
+                container('node') {
+                    sh '''
+                        echo "Testing Node container..."
+                        node --version
+                        npm --version
+                        yarn --version
+                    '''
                 }
             }
         }
-        stage('Test') {
-            steps {
-                container('openjdk') {
-                    echo 'Étape de test en cours...'
-                    echo 'Exécution des tests avec l’image OpenJDK 21.'
-                    // Par exemple : sh './gradlew test'
 
-                    //home/jenkins/agent/workspace/
-                    sh 'mkdir -p logs' 
-                    sh 'echo test > logs/test.txt' 
-                    sh 'cat logs/test.txt'
-                    echo ' j\'ai fait une modif'
+        stage('Test Sonar Scanner') {
+            steps {
+                container('sonar-scanner') {
+                    sh '''
+                        echo "Testing Sonar Scanner container..."
+                        sonar-scanner --version
+                    '''
                 }
             }
         }
-        stage('Crane') {
+
+        stage('Test Kaniko') {
+            steps {
+                container('kaniko') {
+                    sh '''
+                        echo "Testing Kaniko container..."
+                        /kaniko/executor --version
+                    '''
+                }
+            }
+        }
+
+        stage('Test Crane') {
             steps {
                 container('crane') {
-                    echo 'Étape utilisant le conteneur Crane...'
-                    echo 'Crane peut être utilisé pour gérer les images container, par exemple pour des validations ou transferts.'
-                    // Par exemple : sh 'crane ls <image>'
+                    sh '''
+                        echo "Testing Crane container..."
+                        /ko-app/gcrane version
+                    '''
                 }
             }
         }
-        stage('Pause') {
+
+        stage('Test Gcloud-Kubectl') {
             steps {
-                echo 'Pause de 60 secondes avant de continuer...'
-                sleep(time: 60, unit: 'SECONDS')
+                container('gcloud-kubectl') {
+                    sh '''
+                        echo "Testing Gcloud-Kubectl container..."
+                        kubectl version --client
+                        gcloud version
+                    '''
+                }
+            }
+        }
+
+        stage('Test Workspace') {
+            steps {
+                container('node') {
+                    sh '''
+                        echo "Testing workspace permissions..."
+                        mkdir -p test-angular
+                        cd test-angular
+                        echo "console.log('test')" > test.js
+                        node test.js
+                    '''
+                }
             }
         }
     }
 
     post {
         always {
-            echo 'Nettoyage du workspace...'
-            script {
-                // Exécution dans le contexte d'un agent
-                node {
-                    deleteDir()
-                }
-            }
+            cleanWs()
         }
     }
-
 }
