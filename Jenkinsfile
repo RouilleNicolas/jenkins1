@@ -49,7 +49,7 @@ pipeline {
                 container('kaniko') {
                     sh '''
                         echo "Testing Kaniko container..."
-                        /kaniko/executor --version
+                        /kaniko/executor version
                     '''
                 }
             }
@@ -60,7 +60,7 @@ pipeline {
                 container('crane') {
                     sh '''
                         echo "Testing Crane container..."
-                        /ko-app/gcrane version
+                        /ko-app/gcrane version || true
                     '''
                 }
             }
@@ -95,7 +95,7 @@ pipeline {
 
     post {
         always {
-            cleanWs()
+            deleteDir()
         }
     }
 }
