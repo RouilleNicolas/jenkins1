@@ -14,7 +14,7 @@ kind: Pod
 spec:
   containers:
   - name: node
-    image: docker.io/library/node:20.11.1
+    image: docker.io/library/node:20.11.1-slim@sha256:f3299f16246c71ab8b304c3e12b29905a45e432ffa2355a54aca3e56195a8e92
     command:
     - cat
     tty: true
@@ -58,22 +58,26 @@ spec:
     }
 
     stages {
+        stage('Check Node Version') {
+            steps {
+                container('node') {
+                    sh '''
+                        NODE_VERSION=$(node --version)
+                        echo "Node.js version: $NODE_VERSION"
+                        if [[ "$NODE_VERSION" != "v20.11.1" ]]; then
+                            echo "Error: Expected Node.js v20.11.1 but got $NODE_VERSION"
+                            exit 1
+                        fi
+                    '''
+                }
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 container('node') {
                     sh '''
-                        echo "Container info:"
-                        cat /etc/os-release
-                        
-                        echo "\nNode.js version:"
-                        node --version
-                        which node
-                        ls -l $(which node)
-                        
-                        echo "\nContainer environment:"
-                        env | grep PATH
-                        
-                        echo "\nInstalling dependencies..."
+                        echo "Installing dependencies..."
                         yarn install --frozen-lockfile || {
                             echo "Lockfile needs updating, running normal install..."
                             yarn install
