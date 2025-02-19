@@ -32,15 +32,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Installing dependencies..."
-                        # Afficher le contenu du répertoire pour debug
-                        ls -la
-                        
-                        # Installer les dépendances
-                        yarn install
-                        
-                        # Vérifier l'installation de nx
-                        echo "Checking nx installation..."
-                        ./node_modules/.bin/nx --version || npm install -g nx
+                        yarn install --frozen-lockfile
                     '''
                 }
             }
@@ -51,11 +43,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        # Afficher la structure du projet
-                        ls -la
-                        
-                        # Build avec nx
-                        ./node_modules/.bin/nx build ${APP_WORKSPACE} --configuration=production
+                        yarn nx build ${APP_WORKSPACE} --configuration=production
                     '''
                 }
             }
