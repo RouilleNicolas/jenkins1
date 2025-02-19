@@ -38,7 +38,8 @@ pipeline {
                     //home/jenkins/agent/workspace/
                     sh 'mkdir -p logs' 
                     sh 'echo test > logs/test.txt' 
-                    sh 'cat logs/test.txt' 
+                    sh 'cat logs/test.txt'
+                    echo ' j\'ai fait une modif'
                 }
             }
         }
