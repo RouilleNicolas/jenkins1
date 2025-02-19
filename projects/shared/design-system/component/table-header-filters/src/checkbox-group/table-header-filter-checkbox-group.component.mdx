@@ -1,0 +1,23 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as TableHeaderFilterCheckboxGroupComponentStories from './table-header-filter-checkbox-group.component.stories';
+import * as TableWithMultiFiltersStories from '../../../../docs/tables/filters/multi-filters/table-with-multi-filters.stories';
+
+<Meta of={TableHeaderFilterCheckboxGroupComponentStories} />
+
+# Table Header Filter Checkbox Group
+
+This component is used to apply a filter to a table column using checkboxes.
+
+This is a composite component using both the [Table Header Filter Wrapper](/story/components-table-header-filter-wrapper--docs) and the [Checkbox Group](/story/components-checkbox-group--docs) components so you will be able to use most of the inputs and outputs from both components.
+
+Also, this component uses the [Table Header Filters Service](/story/services-table-header-filters--docs) to manage the filters and allow you to perform multi filtering.
+
+<Canvas of={TableHeaderFilterCheckboxGroupComponentStories.Default} />
+
+## Advanced example
+
+This is an advanced example from [How to implement table with multiple filters](/story/how-to-table-filters-multiple--docs).
+
+<Canvas of={TableWithMultiFiltersStories.Default} sourceState='none' />
+
+## Troubleshooting

@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+
+// $color: var(--mdc-text-button-label-text-color, var(--mat-sys-primary));
+$color: var(--mdc-text-button-label-text-color, var(--Brand-Jarret, #cf285c));
+
+@include mat.button-overrides(
+  (
+    // Stroked / Outlined
+    outlined-label-text-color: $color,
+    outlined-outline-color: $color,
+    outlined-outline-width: 2px,
+    outlined-container-shape: 16px
+  )
+);

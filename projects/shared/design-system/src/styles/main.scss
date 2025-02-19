@@ -1,0 +1,43 @@
+@use '@angular/material' as material;
+@use './themes/default_theme-colors.scss' as theme;
+@use 'table-header-filter';
+@use 'scrollbar';
+@use 'buttons';
+
+@include material.core();
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  // Must specify color-scheme for theme mixin to automatically work
+  color-scheme: light;
+
+  // Create one theme that works automatically for light and dark theme
+  @include material.theme(
+    (
+      color: (
+        primary: theme.$primary-palette,
+        tertiary: theme.$tertiary-palette,
+      ),
+      typography: 'Reddit Sans, Roboto, Helvetica Neue, sans-serif',
+      density: 0,
+    )
+  );
+
+  // Use high contrast values when users prefer contrast
+  @media (prefers-contrast: more) {
+    @include theme.high-contrast-overrides(color-scheme);
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Reddit Sans', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+.fill-icon {
+  font-variation-settings: 'FILL' 1;
+}

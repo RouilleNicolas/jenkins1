@@ -1,0 +1,9 @@
+<design-system-table-header-filter-wrapper [filterId]="filterExecutor.filterId()"
+                                           [testId]="filterExecutor.filterId() + '-wrapper'">
+  <design-system-checkbox-group [data]="data()"
+                                [withMasterCheckbox]="withMasterCheckbox()"
+                                [masterCheckboxLabel]="masterCheckboxLabel()"
+                                orientation="vertical"
+                                (selectionChange)="applyFilter($event)"
+                                [testId]="filterExecutor.filterId()" />
+</design-system-table-header-filter-wrapper>

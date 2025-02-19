@@ -1,0 +1,23 @@
+$border-radius: 10px;
+
+// Disclaimer : Unsure if this is the best way to handle this, but it works for now
+*.handset {
+  ::-webkit-scrollbar {
+    height: var(--Tech-Scrollbar-Height, 4px);
+    width: var(--Tech-Scrollbar-Width, 4px);
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: var(--Tech-Scrollbar-Border-Radius, $border-radius);
+    background: var(--Tech-Scrollbar-Track-Bg, initial);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: var(--Tech-Scrollbar-Border-Radius, $border-radius);
+    background: var(--Tech-Scrollbar-Thumb-Bg, initial);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--Tech-Scrollbar-Thumb-Hover-Bg, initial);
+  }
+}

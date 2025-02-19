@@ -1,0 +1,64 @@
+{
+  "name": "generators",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/plugins/generators/src",
+  "projectType": "library",
+  "tags": ["scope:dev-tools"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/plugins/generators",
+        "main": "tools/plugins/generators/src/index.ts",
+        "tsConfig": "tools/plugins/generators/tsconfig.lib.json",
+        "assets": [
+          "tools/plugins/generators/*.md",
+          {
+            "input": "./tools/plugins/generators/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/plugins/generators/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/plugins/generators",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/plugins/generators",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "tools/plugins/generators/jest.config.ts"
+      }
+    },
+    "coverage": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "tools/plugins/generators/jest.config.ts",
+        "ci": true,
+        "codeCoverage": true,
+        "coverageReporters": ["lcov", "text"]
+      }
+    },
+    "sonar": {
+      "executor": "@koliveira15/nx-sonarqube:scan"
+    }
+  }
+}

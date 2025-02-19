@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "version": 2,
+  "title": "CreateSonarProject executor",
+  "type": "object",
+  "properties": {
+    "host": {
+      "type": "string",
+      "description": "Sonar host",
+      "default": "http://localhost:9000",
+      "alias": "h"
+    },
+    "token": {
+      "type": "string",
+      "description": "Sonar token",
+      "alias": "t"
+    },
+    "repository": {
+      "type": "string",
+      "description": "Repository name",
+      "alias": "r"
+    },
+    "almSettings": {
+      "type": "string",
+      "description": "ALM settings"
+    }
+  },
+  "required": [
+    "token",
+    "repository",
+    "almSettings"
+  ]
+}

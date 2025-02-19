@@ -1,0 +1,19 @@
+<mat-card class="container" *transloco="let t">
+    <mat-card-header class="measures-title">
+        <span class="measures-date">
+            {{t("farming-suite.animal-sheet.components.measures.date")}} {{date() | translocoDate}}
+        </span>
+        <span class="measures-tag" [ngClass]="measuresTagCssClass()">
+            {{t("farming-suite.animal-sheet.components.measures." + measuresTagI18nKey())}}
+        </span>
+    </mat-card-header>
+    <mat-card-content class="measures">
+        <span class="measures-content">
+            @let i18nKey = isWeight() ? 'weight' : 'thickness';
+            {{ measures() }} {{ t("farming-suite.animal-sheet.components.measures." + i18nKey) }}
+        </span>
+        <div class="measures-parity">
+            {{t("farming-suite.animals.sow.parity")}} {{parity()}}
+        </div>
+    </mat-card-content>
+</mat-card>

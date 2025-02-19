@@ -1,0 +1,11 @@
+{
+  "name": "<%= strings.dasherize(appName) %>",
+  "dependencies": {
+    "@capacitor/android": "<%= workspaceRoot %>/node_modules/@capacitor/android",
+    "@capacitor/app": "<%= workspaceRoot %>/node_modules/@capacitor/app",
+    "@capacitor/ios": "<%= workspaceRoot %>/node_modules/@capacitor/ios"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "<%= workspaceRoot %>/node_modules/@capacitor/cli"
+  }
+}

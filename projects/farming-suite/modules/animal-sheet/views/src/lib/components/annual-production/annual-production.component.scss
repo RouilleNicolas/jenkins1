@@ -1,0 +1,56 @@
+:host {
+  .card-container {
+    display: flex;
+    padding: 16px 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    border-radius: 16px;
+    background: var(--Brand-Groin-forestier, #012f32);
+
+    .title {
+      align-self: stretch;
+      color: var(--Brand-Boudin-blanc, #fff);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 120%;
+    }
+
+    .content-container {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      align-self: stretch;
+
+      .value {
+        color: var(--Brand-Cochon-de-lait, #ffd3e6);
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 120%;
+      }
+
+      .suffix {
+        color: var(--Brand-Cochon-de-lait, #ffd3e6);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 120%;
+      }
+    }
+  }
+
+  &.handset {
+    .card-container {
+      padding: 0;
+
+      .content-container {
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: 16px;
+        align-self: stretch;
+      }
+    }
+  }
+}

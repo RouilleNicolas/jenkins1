@@ -1,0 +1,45 @@
+<div class="mat-elevation-z8">
+  <cdk-virtual-scroll-viewport tvsItemSize="48" headerHeight="56" style="height: 400px;">
+    <table mat-table [dataSource]="dataSource">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+      </ng-container>
+
+      <!-- Age Column -->
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef> Age </th>
+        <td mat-cell *matCellDef="let element"> {{ element.age }} </td>
+      </ng-container>
+
+      <!-- Birthday Column -->
+      <ng-container matColumnDef="birthDate">
+        <th mat-header-cell *matHeaderCellDef> Birth Date </th>
+        <td mat-cell *matCellDef="let element"> {{ element.birthDate | date: 'short' }} </td>
+      </ng-container>
+
+      <!-- Species Column -->
+      <ng-container matColumnDef="species">
+        <th mat-header-cell *matHeaderCellDef> Species </th>
+        <td mat-cell *matCellDef="let element"> {{ element.species }} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          Actions
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-mini-fab>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </cdk-virtual-scroll-viewport>
+</div>

@@ -1,0 +1,16 @@
+<ng-container *transloco="let t; prefix: 'farming-suite.animal-sheet.components.pork-info'">
+  <span class="title">{{ title() }}</span>
+  <span class="content">
+    {{ content() }}
+
+    @if (date()) {
+      <span class="date">
+        {{ t('date-prefix') }} {{ date()! | translocoDate }}
+      </span>
+    }
+
+    @if (route()) {
+      <mat-icon class="route-icon">arrow_right_alt</mat-icon>
+    }
+  </span>
+</ng-container>

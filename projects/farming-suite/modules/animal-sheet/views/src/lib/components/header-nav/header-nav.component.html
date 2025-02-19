@@ -1,0 +1,14 @@
+<nav *transloco="let t">
+  <design-system-toggle-button>
+    @for (item of navTabs; track $index) {
+      <design-system-toggle-button-item
+        [routerLink]="item.link"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [selected]="rla.isActive"
+        [testId]="'nav-to-' + item.link">
+        {{ t(item.title) }}
+      </design-system-toggle-button-item>
+    }
+  </design-system-toggle-button>
+</nav>

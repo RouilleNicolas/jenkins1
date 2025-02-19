@@ -1,0 +1,27 @@
+<ng-container *transloco="let t">
+  @if (withMasterCheckbox()) {
+    <mat-checkbox
+      class="master-checkbox"
+      [ngClass]="masterCheckboxClasses() || ''"
+      [checked]="allChecked()"
+      [indeterminate]="indeterminate()"
+      (change)="toggleAll($event.checked)"
+    >
+      {{ t(masterCheckboxLabel()) }}
+    </mat-checkbox>
+
+    <mat-divider />
+  }
+
+  <div class="options-container" role="group" [ngClass]="checkboxContainerClasses()">
+    @for (datum of data(); track datum.id) {
+      <mat-checkbox
+        [ngClass]="(checkboxesClasses() || '') + ' ' + (datum.classes || '')"
+        [checked]="selection().isSelected(datum)"
+        (change)="toggle(datum)"
+      >
+        {{ t(datum.label) }}
+      </mat-checkbox>
+    }
+  </div>
+</ng-container>

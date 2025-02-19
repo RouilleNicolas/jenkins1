@@ -1,0 +1,39 @@
+@use '@angular/material' as mat;
+
+:host {
+  table {
+    border-radius: 16px;
+    overflow: auto;
+    @include mat.table-overrides((header-container-height: 64px,
+        row-item-container-height: 64px,
+        header-headline-line-height: 120%,
+        header-headline-color: white));
+
+    .average-row {
+      background-color: var(--Brand-Jambon-au-torchon, #FEF0F6) !important;
+      color: #BC2454;
+    }
+
+    th.mat-mdc-header-cell,
+    td.mat-mdc-cell {
+      padding: 0 8px;
+      border: 0;
+      border-collapse: collapse;
+    }
+
+    .mat-mdc-header-row {
+      background-color: var(--Brand-Groin-forestier, #012F32);
+    }
+
+    .mat-mdc-header-cell.mat-column-career .mat-mdc-cell.mat-column-career {
+      padding: 0 16px;
+      border-right: 2px solid var(--Brand-Chne-truffier, #295456);
+    }
+
+    th>.mat-icon,
+    button {
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+  }
+}

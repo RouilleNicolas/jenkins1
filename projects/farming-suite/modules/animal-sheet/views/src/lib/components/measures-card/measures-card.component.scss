@@ -1,0 +1,91 @@
+:host {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+
+  border-radius: 16px;
+
+  color: var(--Brand-Groin-forestier, #012f32);
+  font-family: 'Reddit Sans', sans-serif;
+
+  .container {
+    background: var(--Brand-Boudin-blanc, #fff);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .measures-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-weight: 500;
+    line-height: 160%;
+  }
+
+  .measures-date {
+    color: var(--Grey-Scale-500, #606d6e);
+    margin-right: auto;
+    font-size: 18px;
+  }
+
+  .measures-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .measures-tag-quarantine {
+    background: #007c8f;
+    color: var(--Brand-Boudin-blanc, #fff);
+  }
+
+  .measures-tag-insemination {
+    background: #beecf4;
+  }
+
+  .measures-tag-pregnant {
+    background: #ffd3e6;
+  }
+
+  .measures-tag-maternity {
+    background: #ff83bb;
+  }
+
+  .measures-tag-other {
+    background: #cdd4d4;
+  }
+
+  .measures {
+    font-weight: 600;
+    line-height: 120%;
+  }
+
+  .measures-content {
+    font-size: 40px;
+  }
+
+  .measures-parity {
+    font-size: 14px;
+  }
+
+  &.handset {
+    padding: 16px;
+
+    .container {
+      gap: 12px;
+    }
+
+    .measures-date {
+      font-size: 16px;
+    }
+  }
+}

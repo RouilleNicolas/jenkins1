@@ -1,0 +1,19 @@
+<ng-container *transloco="let t">
+  <mat-checkbox
+    [formControl]="formControl"
+    [labelPosition]="labelPosition()"
+    [indeterminate]="element().indeterminate"
+    [matTooltip]="t(element().tooltip?.content ?? '')"
+    [matTooltipPosition]="tooltipPosition()"
+    [matTooltipTouchGestures]="tooltipTouchGesture()"
+  >
+    {{ t(element().label) }}
+  </mat-checkbox>
+</ng-container>
+
+<design-system-dynamic-form-errors
+  [errors]="formControl.errors"
+  [displayCondition]="formControl.touched && formControl.invalid"
+  [customRequiredMessage]="element().field?.errorRequiredMessage ?? ''"
+  simulateMatFormField
+/>

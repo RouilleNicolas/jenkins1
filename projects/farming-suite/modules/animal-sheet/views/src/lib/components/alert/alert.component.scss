@@ -1,0 +1,96 @@
+@use '@angular/material' as mat;
+
+$bg-color: rgba(255, 153, 0, 0.16);
+$color: var(--Warning, #f90);
+$padding: 12px;
+$gap: 8px;
+$border: 1px solid var(--Warning, #f90);
+
+:host {
+  &:not(.parent-alert) {
+    display: inline-flex;
+    padding: $padding;
+    align-items: center;
+    gap: $gap;
+    border-radius: 12px;
+    border: $border;
+    background: $bg-color;
+  }
+
+  &.parent-alert {
+    width: 100%;
+
+    .alerts-wrapper {
+      border: $border;
+
+      .mat-expansion-panel-header {
+        padding: initial $padding;
+
+        &:hover,
+        &:focus {
+          background: transparent;
+        }
+
+        .mat-expansion-panel-header-title {
+          gap: $gap;
+        }
+
+        .mat-expansion-panel-header-description {
+          display: none;
+        }
+      }
+
+      .child-alert {
+        display: flex;
+      }
+
+      .alerts-wrapper-body {
+        display: flex;
+        flex-direction: column;
+        gap: $gap;
+      }
+
+      @include mat.expansion-overrides(
+        (
+          container-background-color: $bg-color,
+          header-text-color: $color,
+          header-indicator-color: var(--Brand-Boudin-blanc, #fff),
+          header-hover-state-layer-color: transparent,
+          header-focus-state-layer-color: transparent,
+        )
+      );
+    }
+  }
+
+  .alert-icon {
+    @include mat.icon-overrides(
+      (
+        color: $color,
+      )
+    );
+  }
+
+  .title {
+    color: var(--Warning, #f90);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+  }
+
+  .text-container {
+    display: flex;
+    padding-right: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+
+    .update-date {
+      color: var(--Brand-Boudin-blanc, #fff);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+    }
+  }
+}

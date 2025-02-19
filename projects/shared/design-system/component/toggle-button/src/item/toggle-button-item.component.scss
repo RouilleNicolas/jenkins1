@@ -1,0 +1,45 @@
+:host {
+  display: inline-flex;
+  height: 40px;
+  padding: 0 24px;
+  align-items: center;
+  flex-shrink: 0;
+
+  border-radius: 888px;
+  background: var(--toggle-button-item-bg, var(--mat-sys-primary));
+
+  color: var(--toggle-button-item-color, var(--mat-sys-on-primary));
+  font-weight: 500;
+
+  cursor: pointer;
+
+  &:hover {
+    background: var(--toggle-button-item-bg-hover, var(--mat-sys-primary));
+  }
+
+  &:active {
+    background: var(--toggle-button-item-bg-active, var(--mat-sys-primary));
+  }
+
+  &:hover,
+  &:active {
+    color: var(--toggle-button-item-color-active, var(--toggle-button-item-color-hover, var(--mat-sys-on-primary)));
+  }
+
+  &:hover {
+    color: var(--toggle-button-item-color-hover, var(--toggle-button-item-color-active, var(--mat-sys-on-primary)));
+  }
+
+  &.selected {
+    background: var(--toggle-button-item-selected-bg, var(--mat-sys-primary));
+    color: var(--toggle-button-item-selected-color, var(--mat-sys-on-primary));
+
+    &:hover {
+      color: var(--toggle-button-item-selected-color-hover, var(--mat-sys-on-primary));
+    }
+  }
+
+  &.handset {
+    padding: 0px 16px;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@cooperl/logger",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "tslog": "^4.9.3"
+  },
+  "sideEffects": false
+}

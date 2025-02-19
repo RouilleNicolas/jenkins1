@@ -1,0 +1,51 @@
+@use '@angular/material' as mat;
+
+$action-menu-bg-color: var(--Brand-Vert-fumoir, #124649);
+
+.animal-sheet-header-actions-menu-button {
+  background-color: $action-menu-bg-color;
+}
+
+.animal-sheet-header-actions-menu {
+  background-color: $action-menu-bg-color;
+
+  .mat-mdc-menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.animal-sheet-header-action-button {
+  $color: var(--Brand-Crote-de-sel, #faffd8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  font-size: 16px;
+
+  @include mat.button-overrides(
+    (
+      text-label-text-color: $color,
+      text-hover-state-layer-opacity: 0,
+      text-pressed-state-layer-opacity: 0,
+      text-focus-state-layer-opacity: 0,
+    )
+  );
+
+  .action-icon {
+    $icon-size: 24px;
+    width: $icon-size;
+    height: $icon-size;
+    font-size: $icon-size;
+
+    @include mat.icon-overrides(
+      (
+        color: $color,
+      )
+    );
+  }
+}

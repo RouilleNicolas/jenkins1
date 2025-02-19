@@ -1,0 +1,61 @@
+<mat-form-field *transloco="let t" [appearance]="formFieldAppearance()" [floatLabel]="formFieldFloatLabel()">
+  <mat-label>{{ t(element().label ?? '') }}</mat-label>
+  <mat-select
+    [multiple]="element().multiple"
+    [hideSingleSelectionIndicator]="element().hideSingleSelectionIndicator"
+    [placeholder]="t(element().placeholder ?? '')"
+    [formControl]="formControl"
+  >
+    @for (group of optionsByGroup() | async | keyvalue; track $index) {
+      @if (hasGroups()) {
+        <mat-optgroup [label]="t(group.value.label)" [disabled]="group.value.disabled">
+          <ng-container
+            *ngTemplateOutlet="
+              optionsTpl;
+              context: {
+                $implicit: group.value.options,
+                isGroupDisabled: group.value.disabled,
+              }
+            "
+          />
+        </mat-optgroup>
+      } @else {
+        <ng-container *ngTemplateOutlet="optionsTpl; context: { $implicit: group.value.options }" />
+      }
+    }
+
+    <ng-template #optionsTpl let-options let-isGroupDisabled="isGroupDisabled">
+      @for (opt of options | keyvalue; track $index) {
+        @let item = opt.value | asSelectItem;
+        <mat-option [value]="item" [disabled]="item.disabled || isGroupDisabled">
+          {{ t(item.viewValue || item.label) }}
+        </mat-option>
+      }
+    </ng-template>
+
+    @if (element().multiple && element().multipleChip) {
+      <mat-select-trigger>
+        <mat-chip-set>
+          @for (selection of formControl.value | asSelectItemArray; track $index) {
+            <mat-chip (removed)="removeChip($event)" [highlighted]="element().field?.appearance === 'outline'" [value]="selection" removable>
+              {{ t(selection.viewValue || selection.label) }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          }
+        </mat-chip-set>
+      </mat-select-trigger>
+    }
+  </mat-select>
+
+  @if (element().clearable && formControl.value) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="formControl.setValue(null)">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+
+  @if (formControl.invalid) {
+    <mat-error>
+      <design-system-dynamic-form-errors [errors]="formControl.errors ?? {}" [customRequiredMessage]="element().field?.errorRequiredMessage ?? ''" />
+    </mat-error>
+  }
+</mat-form-field>

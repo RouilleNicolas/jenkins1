@@ -1,0 +1,24 @@
+<ng-container *transloco="let t; prefix: 'farming-suite.animal-sheet.components.logbook.button'">
+  <button mat-fab [extended]="!isHandsetViewport()" [attr.aria-label]="t('aria-label')">
+    <mat-icon
+      class="logbook-icon"
+      [matBadge]="notificationsCount()"
+      [matBadgeHidden]="!notificationsCount()"
+      matBadgeSize="small"
+      matBadgeOverlap
+      aria-hidden="false"
+    >
+      note_stack
+    </mat-icon>
+
+    @if (!isHandsetViewport()) {
+      <span class="notifications-btn-content">
+        {{ t('label') }}
+
+        @if (notificationsCount() > 0) {
+          <farming-suite-animal-sheet-notifications-count [count]="notificationsCount()" />
+        }
+      </span>
+    }
+  </button>
+</ng-container>

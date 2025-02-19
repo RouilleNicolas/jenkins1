@@ -1,0 +1,13 @@
+<ng-container *transloco="let t; prefix: 'farming-suite.animal-sheet.components.notifications'">
+
+  <div class="top-container">
+    <button class="close">Fermer</button>
+
+    <h1>
+      <mat-icon class="notifications-icon">notifications_active</mat-icon>
+      <span class="notifications-title">{{ t('title') }}</span>
+      <farming-suite-animal-sheet-notifications-count [count]="notificationsCount()" />
+    </h1>
+  </div>
+
+</ng-container>

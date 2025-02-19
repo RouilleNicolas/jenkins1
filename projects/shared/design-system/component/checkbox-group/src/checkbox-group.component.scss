@@ -1,0 +1,15 @@
+:host {
+  display: block;
+
+  .options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &.vertical-orientation {
+    .options-container {
+      flex-direction: column;
+    }
+  }
+}

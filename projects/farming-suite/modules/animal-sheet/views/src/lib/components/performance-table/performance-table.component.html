@@ -1,0 +1,148 @@
+<section tabindex="0" *transloco="let t;prefix:'farming-suite.animal-sheet.components.performance-table'">
+    <table mat-table [dataSource]="dataSource" [attr.aria-label]="t('description')">
+        <ng-container matColumnDef="career" sticky>
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.career')}} <mat-icon>sort</mat-icon></th>
+            <td mat-cell *matCellDef="let rank">
+                {{t('content.career', {value: rank.rank_type_id})}}
+                <button mat-icon-button>
+                    <mat-icon>expand_content</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average">
+            <th mat-header-cell *matHeaderCellDef>{{t('average')}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="mating-number">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.mating-number')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.mating_number}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-mating-number">
+            <th mat-header-cell *matHeaderCellDef>{{ rankElements() | calculateAverage:'mating_number' }}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="doses-number">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.doses-number')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.doses_number}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-doses-number">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'doses_number'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="iss1">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.iss1')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.iss1}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-iss1">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'iss1'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="issf">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.issf')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.mating_number}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-issf">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'issf'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="gestation-duration">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.gestation-duration')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.gestation_duration}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-gestation-duration">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'gestation_duration'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="nt">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.nt')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.nt}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-nt">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'nt'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="nv">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.nv')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.nv}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-nv">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'nv'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="mn">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.mn')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.mn}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-mn">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'mn'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="mo">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.mo')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.mo}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-mo">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'mo'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="eld-input">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.eld-input')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.eld_input}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-eld-input">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'eld_input'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="eld-output">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.eld-output')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.eld_output}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-eld-output">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'eld_output'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="adopted">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.adopted')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.adopted}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-adopted">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'adopted'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="removed">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.removed')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.removed}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-removed">
+            <th mat-header-cell *matHeaderCellDef>{{rankElements() | calculateAverage:'removed'}}</th>
+        </ng-container>
+    
+        <ng-container matColumnDef="observation">
+            <th mat-header-cell *matHeaderCellDef>{{t('headers.observation')}}</th>
+            <td mat-cell *matCellDef="let rank">{{rank.observation}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="average-observation">
+            <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="averageDisplayedColumns" class="average-row"></tr>
+    
+        <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+    </table>
+</section>

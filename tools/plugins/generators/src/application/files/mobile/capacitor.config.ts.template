@@ -1,0 +1,50 @@
+/* eslint-disable no-restricted-syntax -- can't use internal logger here */
+import { CapacitorConfig } from '@capacitor/cli';
+import { address } from 'ip';
+
+const config: CapacitorConfig = {
+  appId: 'io.ionic.starter',
+  appName: '<%= strings.camelize(appName) %>',
+  webDir: '<%= workspaceRoot %>/dist/projects/<%= project %>/mobile/browser',
+  bundledWebRuntime: false,
+  server: {
+    androidScheme: 'https',
+  },
+};
+
+// this dynamic configuration allows the Capacitor app to source its UI from the Angular webserver,
+// which will then serve the UI dynamically with live reloading for development purposes.
+if (process.env['NX_CLI_SET'] === 'true' && process.env['NX_TASK_TARGET_TARGET'] === 'run') {
+  // NOTE: virtual adapters from the likes of VMWare or VirtualBox do tend to mess with this a little.. YMMV.
+  // furthermore, the "ip" package's "address" method fails loudly..
+  let wirelessIp: string | undefined;
+  try {
+    wirelessIp = address('Wi-Fi');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    console.debug('could not find a valid wireless IP address to use for Live Reload..');
+  }
+
+  let ethernetIp: string | undefined;
+  try {
+    ethernetIp = address('Ethernet');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    console.debug('could not find a valid wireless IP address to use for Live Reload..');
+  }
+
+  const serverIp = wirelessIp || ethernetIp || address();
+  if (typeof serverIp !== 'string') {
+    throw Error('could not find a valid server IP address to use for Live Reload..');
+  }
+
+  const serverPort = process.env['PORT'] || '4200';
+  config.server = {
+    url: `http://${serverIp}:${serverPort}`,
+    cleartext: true,
+  };
+  console.info('custom Capacitor config.server:', config.server);
+  console.warn('be sure to start the Angular dev server as well, this step is not automated (yet)..');
+}
+
+export default config;

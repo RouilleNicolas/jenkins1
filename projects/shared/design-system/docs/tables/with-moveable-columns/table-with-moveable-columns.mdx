@@ -1,0 +1,68 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as TableWithMoveableColumnsStories from './table-with-moveable-columns.stories';
+
+<Meta of={TableWithMoveableColumnsStories} />
+
+# Table with moveable columns
+
+This is an example of a table with some moveable columns.
+
+<Canvas of={TableWithMoveableColumnsStories.Default} sourceState='none' />
+
+## Notes
+
+We use the Angular CDK to make the columns moveable.
+
+The `cdkDropList` directive is used to define where the `cdkDrag` can be dropped.
+
+The `cdkDropListOrientation` input is set to `horizontal` to force the columns to be moved horizontally.
+
+The `cdkDropListAxis` input is set to `x` to lock the dragged item to the x-axis.
+
+The `cdkDrag` directive is used to make the element draggable.
+
+The `cdkDragData` input is used to pass the column identifier to the `cdkDropListDropped` event.
+
+## How to
+
+- Import `DragDropModule` from `@angular/cdk/drag-drop` in your component.
+- Define the drop list :
+    - Add the `cdkDropList` directive to the `mat-table` element.
+    - Set the `cdkDropListOrientation` input to `horizontal`.
+    - Set the `cdkDropListAxis` input to `x`.
+    - Bind the `cdkDropListDropped` event to a method that will reorder the columns.
+
+        **my.component.html**
+        ```html
+        <mat-table cdkDropList
+                   cdkDropListOrientation="horizontal"
+                   cdkDropListAxis="x"
+                   (cdkDropListDropped)="reorderColumns($event)">
+        <!-- Table content -->
+        </mat-table>
+        ```
+
+        **my.component.ts**
+        ```typescript
+        protected reorderColumns(event: CdkDragDrop<string[]>) {
+            moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
+        }
+        ```
+- Define the draggable columns :
+    - Add the `cdkDrag` directive to the `mat-header-cell` elements that you want to make draggable.
+    - Set the `cdkDragData` input to the identifier of the column.
+
+        **my.component.html**
+        ```html
+        <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef cdkDrag cdkDragData="age"> Age </th>
+            <td mat-cell *matCellDef="let element"> {{ element.age }} </td>
+        </ng-container>
+        ```
+## Troubleshooting
+
+### My columns are reordered in a weird way
+
+Check if you have a non draggable element in your table. It's index will not be taken into account in the `cdkDropListDropped` event and you will have to handle it manually.
+
+For exemple, in the example table, the Id column is not draggable, so we have to increment the index of the dropped item by 1.

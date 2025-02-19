@@ -1,0 +1,59 @@
+@if (simulateMatFormField()) {
+  <div class="mat-mdc-form-field-subscript-wrapper mat-mdc-form-field-bottom-align">
+    @if ((displayCondition() ?? true) && errors()) {
+      <div class="mat-mdc-form-field-error-wrapper" [@transitionMessages]="subscriptAnimationState">
+        <mat-error>
+          <ng-container *ngTemplateOutlet="content" />
+        </mat-error>
+      </div>
+    }
+  </div>
+} @else {
+  <ng-container *ngTemplateOutlet="content" />
+}
+
+<ng-template #content>
+  <ng-container *transloco="let t">
+    @if ((errors() | keyvalue: keepOriginalOrder)?.[0]; as firstError) {
+      @switch (firstError.key) {
+        @case ('required') {
+          {{ t(customRequiredMessage() || 'forms.validation.required') }}
+        }
+        @case ('pattern') {
+          {{ t(customValidationMessage() || 'forms.validation.pattern') }}
+        }
+        @case ('minDate') {
+          {{
+            t('forms.validation.minDate', {
+              min: firstError.value.min | translocoDate,
+            })
+          }}
+        }
+        @case ('matDatepickerMin') {
+          {{
+            t('forms.validation.minDate', {
+              min: firstError.value.min | translocoDate,
+            })
+          }}
+        }
+        @case ('maxDate') {
+          {{
+            t('forms.validation.maxDate', {
+              max: firstError.value.max | translocoDate,
+            })
+          }}
+        }
+        @case ('matDatepickerMax') {
+          {{
+            t('forms.validation.maxDate', {
+              max: firstError.value.max | translocoDate,
+            })
+          }}
+        }
+        @default {
+          {{ t('forms.validation.' + firstError.key, firstError.value) }}
+        }
+      }
+    }
+  </ng-container>
+</ng-template>

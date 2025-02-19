@@ -1,0 +1,117 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as TableWithMultiFiltersStories from './table-with-multi-filters.stories';
+
+<Meta of={TableWithMultiFiltersStories} />
+
+# Table with multiple filters
+
+<Canvas of={TableWithMultiFiltersStories.Default} sourceState='none' />
+
+## Notes
+
+## How to implements
+
+- In the component :
+    - Imports `TableHeaderFilterComponent` from `@cooperl/design-system/table-header-filter`
+    - Provide `TableFilterService` to the component
+    - Inject `TableFiltersService<YourDataSourceType>` and initialize it with your data source
+    - Create a `filterByXXX` function that will be called when the user changes the filter value
+      This function will have to create a `FilterFn<YourDataSourceType>` function that will be passed to the `TableFilterService.registerFilters(...)` method.
+    - When the data source must be filtered, call the `TableFilterService.executeFilters()` method
+      If you want to register and immediately execute the filter, you can use the `TableFilterService.registerAndExecuteFilters(...)` method
+
+- In the template :
+    - Use the `design-system-table-header-filter` component
+    - Put what you want in the projection content of this component
+    - Bind the `filterByXXX` function to your content-projected element
+
+---
+
+Example :
+
+**my.component.ts**
+```typescript
+@Component({
+    // ...
+    imports: [
+        // ...
+        // Internal
+        CheckboxGroupComponent,
+        TableHeaderFilterComponent
+    ],
+    providers: [
+        TableFiltersService
+    ],
+    // ...
+})
+export class MyComponent {
+    protected readonly dataSource = new MatTableDataSource<Datum>([/*...*/]);
+
+    protected readonly options = [/*...*/];
+    // 👆 In our example we use CheckboxGroupComponent, it's data input must be either string[] or CheckboxGroupDatum<T>[]
+
+    private readonly _tableFiltersService = inject(TableFiltersService<Datum>).registerDataSource(this.dataSource);
+
+    protected filterByAge(newSelection: CheckboxSelectionChange<number>[]) {
+        const filterFn: FilterFn<MyDataSourceType> = (datum) => !!newSelection.find(({ value }) => datum.age === value);
+        this._tableFiltersService.registerAndExecuteFilters({ key: 'option', filterFn: filterFn });
+    }
+}
+```
+
+**my.component.html**
+```html
+  <table mat-table [dataSource]="dataSource">
+    <!-- Custom filter -->
+    <ng-container matColumnDef="...">
+      <th mat-header-cell *matHeaderCellDef>
+        <span>
+          ...
+
+          <design-system-table-header-filter filterId="..."
+                                             testId="...">
+            <!-- Whatever you want here -->
+          </design-system-table-header-filter>
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{ element.age }} </td>
+    </ng-container>
+
+    <!-- With checkbox-group filter -->
+    <ng-container matColumnDef="...">
+      <th mat-header-cell *matHeaderCellDef>
+        <span>
+          Age
+
+          <design-system-table-header-filter-checkbox-group
+            [filterId]="..."
+            [data]="..."
+            [filterFn]="..."
+            filterExecutionMode="..." />
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{ element.age }} </td>
+    </ng-container>
+
+    <!-- With text filter -->
+    <ng-container matColumnDef="...">
+      <th mat-header-cell *matHeaderCellDef>
+        <span>
+          Age
+
+          <design-system-table-header-filter-text
+            [filterId]="..."
+            [filterFn]="..."
+            filterExecutionMode="..." />
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{ element.age }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+```
+
+## Troubleshooting

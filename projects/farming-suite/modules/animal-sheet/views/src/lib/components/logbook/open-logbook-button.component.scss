@@ -1,0 +1,44 @@
+@use '@angular/material' as mat;
+
+:host {
+  @include mat.fab-overrides(
+    (
+      container-color: var(--Brand-Crote-de-sel, #faffd8),
+    )
+  );
+
+  @include mat.badge-overrides(
+    (
+      background-color: var(--Error, #ee2c00),
+    )
+  );
+
+  // Hack to put the badge in the right place
+  ::ng-deep .mat-badge-content.mat-badge-active {
+    transform: translate(-17.5px, 2.5px);
+  }
+
+  .logbook-icon {
+    margin-right: 8px;
+  }
+
+  .notifications-btn-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &.handset {
+    button {
+      width: 40px;
+      height: 38px;
+      border-radius: 50px;
+    }
+
+    .logbook-icon {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

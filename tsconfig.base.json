@@ -1,0 +1,49 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@cooperl/authentication": ["projects/shared/authentication/src/index.ts"],
+      "@cooperl/authentication/mobile": ["projects/shared/authentication/mobile/src/index.ts"],
+      "@cooperl/authentication/web": ["projects/shared/authentication/web/src/index.ts"],
+      "@cooperl/design-system": ["projects/shared/design-system/src/index.ts"],
+      "@cooperl/design-system/component/checkbox-group": ["projects/shared/design-system/component/checkbox-group/src/index.ts"],
+      "@cooperl/design-system/component/toggle-button": ["projects/shared/design-system/component/toggle-button/src/index.ts"],
+      "@cooperl/design-system/component/table-header-filters": ["projects/shared/design-system/component/table-header-filters/src/index.ts"],
+      "@cooperl/design-system/directive/test-id": ["projects/shared/design-system/directive/test-id/src/index.ts"],
+      "@cooperl/design-system/form-element/component/dynamic-form": [
+        "projects/shared/design-system/form-element/component/dynamic-form/src/index.ts"
+      ],
+      "@cooperl/design-system/testing": ["projects/shared/design-system/testing/src/index.ts"],
+      "@cooperl/executors": ["tools/plugins/executors/src/index.ts"],
+      "@cooperl/farming-suite/animal-sheet/application": ["projects/farming-suite/modules/animal-sheet/application/src/index.ts"],
+      "@cooperl/farming-suite/animal-sheet/clients": ["projects/farming-suite/modules/animal-sheet/infrastructure/clients/src/index.ts"],
+      "@cooperl/farming-suite/animal-sheet/domain": ["projects/farming-suite/modules/animal-sheet/domain/src/index.ts"],
+      "@cooperl/farming-suite/animal-sheet/routing": ["projects/farming-suite/modules/animal-sheet/routing/src/index.ts"],
+      "@cooperl/farming-suite/animal-sheet/state": ["projects/farming-suite/modules/animal-sheet/infrastructure/state/src/index.ts"],
+      "@cooperl/farming-suite/animal-sheet/views": ["projects/farming-suite/modules/animal-sheet/views/src/index.ts"],
+      "@cooperl/generators": ["tools/plugins/generators/src/index.ts"],
+      "@cooperl/i18n": ["projects/shared/i18n/src/index.ts"],
+      "@cooperl/i18n/testing": ["projects/shared/i18n/testing/src/index.ts"],
+      "@cooperl/logger": ["projects/shared/logger/src/index.ts"],
+      "@cooperl/utils": ["projects/shared/utils/src/index.ts"],
+      "@cooperl/utils/form-control-forward": ["projects/shared/utils/form-control-forward/src/index.ts"],
+      "@cooperl/utils/to-abstract-control": ["projects/shared/utils/to-abstract-control/src/index.ts"],
+      "@cooperl/utils/uniq": ["projects/shared/utils/uniq/src/index.ts"],
+      "@cooperl/utils/validators": ["projects/shared/utils/validators/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

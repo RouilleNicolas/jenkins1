@@ -1,0 +1,8 @@
+:host {
+  display: block;
+
+  th > span.with-filter {
+    display: flex;
+    align-items: center;
+  }
+}

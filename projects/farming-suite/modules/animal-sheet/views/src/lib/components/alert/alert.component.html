@@ -1,0 +1,39 @@
+@if (childrenAlerts().length) {
+  <mat-expansion-panel class="alerts-wrapper" designSystemTestId="alerts-wrapper">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <ng-container [ngTemplateOutlet]="alertIcon" />
+        <span class="title">{{ title() }}</span>
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="alerts-wrapper-body">
+      @for (alert of childrenAlerts(); track $index) {
+        <farming-suite-animal-sheet-alert class="child-alert" designSystemTestId="alert" [title]="alert.title" [updateDate]="alert.updateDate" hideIcon />
+      }
+    </div>
+
+  </mat-expansion-panel>
+} @else {
+  <ng-container *transloco="let t; prefix: 'farming-suite.animal-sheet.components.alert'">
+    @if (!hideIcon()) {
+      <ng-container [ngTemplateOutlet]="alertIcon" />
+    }
+
+    <div class="text-container">
+      <span class="title">{{ title() }}</span>
+
+      @let date = updateDate();
+      @if (date) {
+        <span class="update-date">{{ t('update-date', { 'update-date': date | translocoDate }) }}</span>
+      }
+    </div>
+  </ng-container>
+}
+
+<ng-template #alertIcon>
+  <mat-icon class="alert-icon fill-icon" aria-label="warning">warning</mat-icon>
+</ng-template>

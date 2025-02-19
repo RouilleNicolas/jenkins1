@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  width: 400px;
+  padding: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 48px;
+  flex-shrink: 0;
+  background: var(--Brand-Crote-de-sel, #faffd8);
+
+  .top-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 48px;
+    align-self: stretch;
+
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      align-self: stretch;
+
+      .notifications-icon {
+        $size: 32px;
+        width: $size;
+        height: $size;
+        font-size: $size;
+        flex-shrink: 0;
+      }
+
+      .notifications-title {
+        color: var(--Brand-Groin-forestier, #012f32);
+        line-height: 120%;
+      }
+    }
+  }
+}

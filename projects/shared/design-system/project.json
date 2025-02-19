@@ -1,0 +1,102 @@
+{
+  "name": "design-system",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/shared/design-system",
+  "prefix": "design-system",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "projects/shared/design-system/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/shared/design-system/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "projects/shared/design-system/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/shared/design-system/jest.config.ts"
+      }
+    },
+    "coverage": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/shared/design-system/jest.config.ts",
+        "ci": true,
+        "codeCoverage": true,
+        "coverageReporters": ["lcov", "text"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "projects/shared/design-system/.storybook",
+        "browserTarget": "design-system:build-storybook",
+        "compodoc": false,
+        "styles": ["projects/shared/design-system/src/styles/themes/default_theme-colors.scss", "projects/shared/design-system/src/styles/main.scss"],
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "i18n",
+            "output": "assets/i18n"
+          },
+          {
+            "glob": "fake-form.json",
+            "input": "projects/shared/design-system/form-element/component/dynamic-form/src/stories",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "projects/shared/design-system/src/styles/img",
+            "output": "/assets/img"
+          }
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/design-system",
+        "configDir": "projects/shared/design-system/.storybook",
+        "browserTarget": "design-system:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "sonar": {
+      "executor": "@koliveira15/nx-sonarqube:scan",
+      "options": {
+        "extra": {
+          "sonar.cpd.exclusions": "{projectRoot}/form-element/component/dynamic-form/src/elements/inputs/**/*.html",
+          "sonar.coverage.exclusions": "**/*.const.ts"
+        }
+      }
+    }
+  }
+}

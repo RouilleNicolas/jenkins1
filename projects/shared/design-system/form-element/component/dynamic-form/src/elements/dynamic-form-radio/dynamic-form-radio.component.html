@@ -1,0 +1,14 @@
+<mat-radio-group *transloco="let t" [formControl]="formControl">
+  @for (opt of options() | async | keyvalue: keepOriginalOrder; track $index) {
+    <mat-radio-button [id]="opt.key" [value]="opt.value.value" [labelPosition]="opt.value.labelPosition ?? 'after'" [disabled]="opt.value.disabled">
+      {{ t(opt.value.label) }}
+    </mat-radio-button>
+  }
+</mat-radio-group>
+
+<design-system-dynamic-form-errors
+  [errors]="formControl.errors"
+  [customRequiredMessage]="element().field?.errorRequiredMessage ?? ''"
+  simulateMatFormField
+  [displayCondition]="formControl.touched"
+/>

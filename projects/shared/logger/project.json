@@ -1,0 +1,49 @@
+{
+  "name": "logger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/shared/logger/src",
+  "prefix": "logger",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "projects/shared/logger/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/shared/logger/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "projects/shared/logger/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/shared/logger/jest.config.ts"
+      }
+    },
+    "coverage": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/shared/logger/jest.config.ts",
+        "ci": true,
+        "codeCoverage": true,
+        "coverageReporters": ["lcov", "text"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "sonar": {
+      "executor": "@koliveira15/nx-sonarqube:scan"
+    }
+  }
+}

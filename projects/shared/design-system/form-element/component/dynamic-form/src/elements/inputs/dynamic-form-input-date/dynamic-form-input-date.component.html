@@ -1,0 +1,45 @@
+<mat-form-field *transloco="let t" [appearance]="formFieldAppearance()" [floatLabel]="formFieldFloatLabel()">
+  <mat-label>{{ t(element().label ?? '') }}</mat-label>
+
+  <ng-container matPrefix *ngIf="element().prefix?.icon as icon">
+    <mat-datepicker-toggle matPrefix [for]="picker">
+      <mat-icon matDatepickerToggleIcon>{{ icon }}</mat-icon>
+    </mat-datepicker-toggle>
+  </ng-container>
+
+  <input
+    matInput
+    [formControl]="formControl"
+    [placeholder]="t(element().placeholder ?? '')"
+    [matDatepicker]="picker"
+    [min]="element().date.validation?.min"
+    [max]="element().date.validation?.max"
+  />
+  <mat-datepicker #picker [startView]="startView()" [startAt]="element().date.startAt ?? null" />
+
+  <ng-container matSuffix *ngIf="element().suffix?.icon as icon">
+    <mat-datepicker-toggle matSuffix [for]="picker">
+      <mat-icon matDatepickerToggleIcon>{{ icon }}</mat-icon>
+    </mat-datepicker-toggle>
+  </ng-container>
+
+  @if (element().hint; as hint) {
+    <mat-hint [align]="hintAlign()">{{ t(hint.content) }}</mat-hint>
+  }
+
+  @if (element().clearable && formControl.value) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="formControl.setValue(null)">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+
+  @if (formControl.invalid) {
+    <mat-error>
+      <design-system-dynamic-form-errors
+        [errors]="formControl.errors ?? {}"
+        [customRequiredMessage]="element().field?.errorRequiredMessage ?? ''"
+        [customValidationMessage]="element().validation?.errorValidationMessage ?? ''"
+      />
+    </mat-error>
+  }
+</mat-form-field>

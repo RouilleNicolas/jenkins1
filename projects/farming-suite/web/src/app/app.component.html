@@ -1,0 +1,12 @@
+<mat-drawer-container hasBackdrop>
+
+  <mat-drawer mode="over">
+    <ng-template [cdkPortalOutlet]="sidePanelService['_content']" />
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <app-side-menu />
+
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

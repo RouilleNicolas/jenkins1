@@ -1,0 +1,15 @@
+<mat-card appearance="outlined" class="card-container">
+  <mat-card-header>
+    <mat-card-title class="title">{{ title() }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="content-container">
+    <span class="value">{{ value() }}
+      @if (isPercentValue()) { 
+        <sup class="percent">%</sup> 
+      }
+    </span>
+    @if (suffix()) {
+      <span class="suffix">{{ suffix() }}</span>
+    }
+  </mat-card-content>
+</mat-card>

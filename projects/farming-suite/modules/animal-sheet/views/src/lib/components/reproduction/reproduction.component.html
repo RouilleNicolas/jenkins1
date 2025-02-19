@@ -1,0 +1,21 @@
+<mat-card appearance="outlined" class="card" *transloco="let t;prefix: 'farming-suite.animal-sheet.components.reproduction'">
+    <mat-card-header class="header-container">
+        <span class="title">{{ t('title') }}</span>
+    </mat-card-header>
+    <mat-card-content class="content-container">
+        <div class="first-row">
+            <span class="value">{{ farrowingInterval() }} {{ t('day-suffix') }}</span>
+            <span class="suffix">{{ t('farrowing-interval.suffix') }}</span>
+        </div>
+        <div class="second-row">
+            @for (item of secondRowInformationCardItem(); track $index) {
+                <farming-suite-animal-sheet-information-card class="information-card" [subtitle]="item.subtitle" [value]="item.value" />
+            }
+        </div>
+        <div class="third-row">
+            @for (item of thirdRowInformationCardItem(); track $index) {
+                <farming-suite-animal-sheet-information-card class="information-card" [subtitle]="item.subtitle" [value]="item.value" />
+            }
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,43 @@
+:host {
+  --information-title: #606d6e;
+
+  .card-container {
+    border-radius: 16px;
+    background-color: var(--mat-sys-on-primary);
+    color: var(--Brand-Groin-forestier, #012f32);
+    display: flex;
+    padding: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 1 0 0;
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 160%;
+    }
+
+    .content-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      align-self: stretch;
+    }
+
+    .content-container>farming-suite-animal-sheet-information {
+      width: 50%;
+    }
+  }
+
+  &.handset {
+    .card-container {
+      padding: 0;
+
+      .content-container {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  }
+}

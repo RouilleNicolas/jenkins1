@@ -1,0 +1,36 @@
+<% if(platform === 'web') { %>{
+  "apiBaseUrl": "/restapi",
+  "keycloak": {
+    "config": {
+      "url": "http://localhost:8088",
+      "realm": "farming-solution-suite",
+      "clientId": "frontend"
+    },
+    "initOptions": {
+      "onLoad": "login-required",
+      "checkLoginIframe": false
+    },
+    "enableBearerInterceptor": true,
+    "bearerPrefix": "Bearer",
+    "bearerExcludedUrls": ["/assets", "/clients/public"]
+  }
+}
+<% } else if (platform === 'mobile') { %>{
+  "apiBaseUrl": "/restapi",
+  "mobileRedirectUri": "myschema://login",
+  "keycloak": {
+    "config": {
+      "url": "http://localhost:8088",
+      "realm": "farming-solution-suite",
+      "clientId": "mobile"
+    },
+    "bearerPrefix": "Bearer"
+  },
+  "oauth2": {
+    "responseType": "code",
+    "scope": "",
+    "showDebugInformation": true,
+    "requireHttps": false
+  }
+}
+<% } %>

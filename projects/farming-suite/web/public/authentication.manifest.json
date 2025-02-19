@@ -1,0 +1,17 @@
+{
+  "apiBaseUrl": "/restapi",
+  "keycloak": {
+    "config": {
+      "url": "http://localhost:8088",
+      "realm": "farming-solution-suite",
+      "clientId": "frontend"
+    },
+    "initOptions": {
+      "onLoad": "login-required",
+      "checkLoginIframe": false
+    },
+    "enableBearerInterceptor": true,
+    "bearerPrefix": "Bearer",
+    "bearerExcludedUrls": ["/assets", "/clients/public"]
+  }
+}

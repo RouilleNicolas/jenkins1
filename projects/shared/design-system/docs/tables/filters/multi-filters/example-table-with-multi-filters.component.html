@@ -1,0 +1,80 @@
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
+    <!-- Age Column -->
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef>
+        <span class="with-filter">
+          Age
+
+          <design-system-table-header-filter-checkbox-group
+            [filterId]="filters.age"
+            [data]="uniqAges"
+            [filterFn]="filterByAgeFn"
+            filterExecutionMode="immediate" />
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{ element.age }} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        <span class="with-filter">
+          Name
+
+          <design-system-table-header-filter-text
+            [filterId]="filters.name"
+            [filterFn]="filterByNameFn"
+            filterExecutionMode="immediate" />
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+    </ng-container>
+
+    <!-- Birthday Column -->
+    <ng-container matColumnDef="birthDate">
+      <th mat-header-cell *matHeaderCellDef> Birth Date </th>
+      <td mat-cell *matCellDef="let element"> {{ element.birthDate | date: 'short' }} </td>
+    </ng-container>
+
+    <!-- Species Column -->
+    <ng-container matColumnDef="species">
+      <th mat-header-cell *matHeaderCellDef>
+        <span class="with-filter">
+          Species
+
+          <design-system-table-header-filter-checkbox-group
+            [filterId]="filters.species"
+            [data]="uniqSpecies"
+            filterExecutionMode="manual"
+            (selectionChange)="filterBySpecies($event)" />
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{ element.species }} </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>
+        Actions
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" />
+</div>

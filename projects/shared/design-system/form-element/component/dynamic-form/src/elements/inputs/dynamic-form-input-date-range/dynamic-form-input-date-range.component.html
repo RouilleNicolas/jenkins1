@@ -1,0 +1,41 @@
+<mat-form-field *transloco="let t" [appearance]="formFieldAppearance()" [floatLabel]="formFieldFloatLabel()">
+  <mat-label>{{ t(element().label ?? '') }}</mat-label>
+
+  <ng-container matPrefix *ngIf="element().prefix?.icon as icon">
+    <mat-datepicker-toggle matPrefix [for]="picker" [disabled]="formGroup.disabled">
+      <mat-icon matDatepickerToggleIcon>{{ icon }}</mat-icon>
+    </mat-datepicker-toggle>
+  </ng-container>
+
+  <mat-date-range-input [rangePicker]="picker" [formGroup]="formGroup" [min]="element().date.validation?.min" [max]="element().date.validation?.max">
+    <input [formControlName]="startDateControlName" matStartDate [placeholder]="t(element().date.range?.startPlaceholder ?? '')" />
+    <input [formControlName]="endDateControlName" matEndDate [placeholder]="t(element().date.range?.endPlaceholder ?? '')" />
+  </mat-date-range-input>
+  <mat-date-range-picker #picker [startView]="startView()" [startAt]="element().date.startAt" />
+
+  <ng-container matSuffix *ngIf="element().suffix?.icon as icon">
+    <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="formGroup.disabled">
+      <mat-icon matDatepickerToggleIcon>{{ icon }}</mat-icon>
+    </mat-datepicker-toggle>
+  </ng-container>
+
+  @if (element().hint; as hint) {
+    <mat-hint [align]="hintAlign()">{{ t(hint.content) }}</mat-hint>
+  }
+
+  @if (element().clearable && (formGroup.get(startDateControlName)?.value || formGroup.get(endDateControlName)?.value)) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+
+  @if (formGroup.invalid) {
+    <mat-error>
+      <design-system-dynamic-form-errors
+        [errors]="formGroup.errors ?? formGroup.controls[startDateControlName].errors ?? formGroup.controls[endDateControlName].errors ?? {}"
+        [customRequiredMessage]="element().field?.errorRequiredMessage ?? ''"
+        [customValidationMessage]="element().validation?.errorValidationMessage ?? ''"
+      />
+    </mat-error>
+  }
+</mat-form-field>

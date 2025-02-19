@@ -1,0 +1,39 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as TableWithVirtualScrollStories from './table-with-virtual-scroll.stories';
+
+<Meta of={TableWithVirtualScrollStories} />
+
+# Table with virtual scroll
+
+This is an example of a table, containing 100 000 rows, with virtual scroll.
+
+<Canvas of={TableWithVirtualScrollStories.Default} sourceState='none' />
+
+## Notes
+
+We have to use `ng-table-virtual-scroll` to enable virtual scrolling in Angular Material tables. This is because Angular Material tables do not support virtual scrolling out of the box.
+
+## How to
+
+- Import `ScrollingModule` from `@angular/cdk/scrolling` in your component.
+- Import `TableVirtualScrollModule` from `ng-table-virtual-scroll` in your component.
+- Replace `MatTableDataSource` with `TableVirtualScrollDataSource` in your component.
+- Define the virtual scroll :
+    - Encapsulate your table in a `cdk-virtual-scroll-viewport` element.
+    - Set the `tvsItemSize` input on the `cdk-virtual-scroll-viewport` element to the height of a single row in your table.
+    - Set the `headerHeight` input on the `cdk-virtual-scroll-viewport` element to the height of the table header.
+    - Ensure that the `cdk-virtual-scroll-viewport` element has a fixed height.
+
+        **my.component.html**
+        ```html
+        <cdk-virtual-scroll-viewport
+        itemSize="48"
+        headerHeight="48"
+        style="height: 400px;">
+            <table mat-table [dataSource]="dataSource">
+                <!-- Table content -->
+            </table>
+        </cdk-virtual-scroll-viewport>
+        ```
+
+## Troubleshooting

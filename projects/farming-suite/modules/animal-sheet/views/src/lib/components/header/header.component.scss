@@ -1,0 +1,190 @@
+@use '@angular/material' as mat;
+
+:host {
+  color: var(--Brand-Boudin-blanc, #fff);
+
+  position: fixed;
+  top: 0;
+  width: 100%;
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+
+  display: flex;
+  padding: 32px 64px 16px 64px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+
+  background: var(--Brand-Groin-forestier, #012f32);
+  background-image: url('/assets/img/swirl.svg');
+  background-repeat: no-repeat;
+  background-position-x: calc(100% - 23px);
+  background-position-y: calc(100% - 59px);
+
+  .informations {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+
+    .title-container {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+    }
+
+    .title-and-actions {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+
+      h1 {
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        margin: 0;
+
+        transition:
+          font-size var(--animation-duration, 0.2s) ease-in-out,
+          line-height var(--animation-duration, 0.2s) ease-in-out;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        @include mat.button-overrides(
+          (
+            text-with-icon-horizontal-padding: 0,
+          )
+        );
+      }
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .alerts {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  &.sticky {
+    padding: 16px 64px;
+    align-items: center;
+    flex-direction: row;
+
+    background-position-x: calc(100% - 119px);
+    background-position-y: calc(100% - 195px);
+
+    // Hide elements
+    .notifications-btn,
+    .actions,
+    .status,
+    .alerts {
+      display: none !important;
+    }
+
+    .informations {
+      align-self: auto;
+
+      .title-container {
+        .title-and-actions {
+          h1 {
+            font-size: 16px;
+            line-height: 140%;
+          }
+        }
+      }
+    }
+  }
+
+  &.handset {
+    padding: 16px;
+
+    .informations {
+      gap: 32px;
+
+      .title-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+
+        .back-and-notifs {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          align-self: stretch;
+
+          @include mat.button-overrides(
+            (
+              text-with-icon-horizontal-padding: 0,
+            )
+          );
+        }
+
+        .title-and-actions {
+          gap: 16px;
+          flex: 1 0 0;
+          width: 100%;
+          justify-content: space-between;
+
+          @include mat.icon-button-overrides(
+            (
+              icon-color: var(--Brand-Croute-de-sel, #faffd8),
+              hover-state-layer-opacity: 0,
+              pressed-state-layer-opacity: 0,
+              focus-state-layer-opacity: 0,
+            )
+          );
+
+          h1 {
+            font-size: 24px;
+          }
+        }
+      }
+
+      .status {
+        overflow: auto;
+        width: 100%;
+
+        // Space for scrollbar
+        padding-bottom: 16px;
+
+        --Tech-Scrollbar-Track-Bg: var(--Brand-Chne-truffier, #295456);
+        --Tech-Scrollbar-Thumb-Bg: var(--Brand-Crote-de-sel, #faffd8);
+        --Tech-Scrollbar-Thumb-Hover-Bg: #88a291;
+      }
+    }
+
+    &.sticky {
+      flex-direction: column;
+      gap: 12px;
+
+      .back-and-notifs {
+        display: none !important;
+      }
+
+      .informations {
+        .title-container {
+          .title-and-actions {
+            h1 {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

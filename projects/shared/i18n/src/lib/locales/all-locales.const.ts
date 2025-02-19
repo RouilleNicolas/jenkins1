@@ -1,0 +1,11 @@
+export const frFR = 'fr-FR';
+export const enGB = 'en-GB';
+export const deDE = 'de-DE';
+export const esES = 'es-ES';
+export const nlNL = 'nl-NL';
+export const plPL = 'pl-PL';
+export const ruRU = 'ru-RU';
+export const thTH = 'th-TH';
+export const viVN = 'vi-VN';
+export const zhCN = 'zh-CN';
+export const zhTW = 'zh-TW';

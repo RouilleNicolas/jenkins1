@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "DesignSystemElement",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of element to generate. Can be 'component', 'directive' or 'pipe'",
+      "enum": [
+        "component",
+        "directive",
+        "pipe"
+      ],
+      "default": "component",
+      "x-prompt": {
+        "message": "Which kind of element do you want to create ?",
+        "type": "list",
+        "items": [
+          {
+            "value": "component",
+            "label": "Component"
+          },
+          {
+            "value": "directive",
+            "label": "Directive"
+          },
+          {
+            "value": "pipe",
+            "label": "Pipe"
+          }
+        ]
+      }
+    },
+    "formElement": {
+      "type": "boolean",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Is it a form element?"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ]
+}

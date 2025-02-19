@@ -1,0 +1,122 @@
+{
+  "name": "farming-suite-web",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "projects/farming-suite/web/src",
+  "tags": ["scope:farming-suite", "type:web"],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/projects/farming-suite/web",
+        "index": "projects/farming-suite/web/src/index.html",
+        "browser": "projects/farming-suite/web/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "projects/farming-suite/web/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "projects/farming-suite/web/public"
+          },
+          {
+            "glob": "**/*.json",
+            "input": "i18n",
+            "output": "/assets/i18n"
+          },
+          {
+            "glob": "**/*",
+            "input": "projects/farming-suite/modules/animal-sheet/views/styles/img",
+            "output": "/assets/img"
+          },
+          {
+            "glob": "**/*",
+            "input": "projects/shared/design-system/src/styles/icons",
+            "output": "/assets/icons"
+          }
+        ],
+        "styles": [
+          "projects/shared/design-system/src/styles/themes/default_theme-colors.scss",
+          "projects/shared/design-system/src/styles/main.scss",
+          "projects/farming-suite/modules/animal-sheet/views/styles/main.scss",
+          "projects/farming-suite/web/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "5kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "farming-suite-web:build:production"
+        },
+        "development": {
+          "buildTarget": "farming-suite-web:build:development",
+          "proxyConfig": "projects/farming-suite/web/proxy.conf.json"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "farming-suite-web:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/farming-suite/web/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "farming-suite-web:build",
+        "staticFilePath": "dist/projects/farming-suite/web/browser",
+        "spa": true
+      }
+    },
+    "coverage": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts",
+        "codeCoverage": true,
+        "coverageReporters": ["lcov", "text"]
+      }
+    },
+    "sonar": {
+      "executor": "@koliveira15/nx-sonarqube:scan"
+    }
+  }
+}

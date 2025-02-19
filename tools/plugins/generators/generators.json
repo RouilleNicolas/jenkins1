@@ -1,0 +1,24 @@
+{
+  "generators": {
+    "design-system-element": {
+      "factory": "./src/design-system-element/generator",
+      "schema": "./src/design-system-element/schema.json",
+      "description": "Generate a shared element in the design system project"
+    },
+    "application": {
+      "factory": "./src/application/generator",
+      "schema": "./src/application/schema.json",
+      "description": "Generate an application (web or mobile)"
+    },
+    "project-shared": {
+      "factory": "./src/project/shared/generator",
+      "schema": "./src/project/shared/schema.json",
+      "description": "Generate a project exposing shared code"
+    },
+    "hexagonal-module": {
+      "factory": "./src/hexagonal-module/generator",
+      "schema": "./src/hexagonal-module/schema.json",
+      "description": "Generate an Archigonal module"
+    }
+  }
+}

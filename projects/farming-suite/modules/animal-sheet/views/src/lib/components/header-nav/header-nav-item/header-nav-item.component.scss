@@ -1,0 +1,43 @@
+:host {
+  display: inline-flex;
+  height: 40px;
+  padding: 0 24px;
+  align-items: center;
+  flex-shrink: 0;
+
+  border-radius: 888px;
+  background: var(--Brand-Vert-fumoir, #124649);
+
+  color: var(--Brand-Boudin-Blanc, var(--mat-sys-on-primary, #ffffff));
+  leading-trim: both;
+  text-edge: cap;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  &:hover {
+    background: var(--Brand-Chne-truffier, #295456);
+  }
+
+  &:active {
+    background: var(--Brand-Groin-forestier, #012f32);
+  }
+
+  &:hover,
+  &:active {
+    color: var(--Brand-Croute-de-sel, #faffd8);
+  }
+
+  &.active {
+    background: var(--Brand-Crote-de-sel, #faffd8);
+    color: var(--Brand-Groin-forestier, #012f32);
+
+    &:hover {
+      color: var(--Brand-Chne-truffier, #295456);
+    }
+  }
+
+  &.handset {
+    padding: 0px 16px;
+  }
+}

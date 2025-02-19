@@ -1,0 +1,48 @@
+{
+  "name": "farming-suite-animal-sheet-domain",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/farming-suite/modules/animal-sheet/domain/src",
+  "prefix": "farming-suite-animal-sheet",
+  "projectType": "library",
+  "tags": ["type:domain", "scope:farming-suite:animal-sheet"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "projects/farming-suite/modules/animal-sheet/domain/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/farming-suite/modules/animal-sheet/domain/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "projects/farming-suite/modules/animal-sheet/domain/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/farming-suite/modules/animal-sheet/domain/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "coverage": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts",
+        "codeCoverage": true,
+        "coverageReporters": ["lcov", "text"]
+      }
+    },
+    "sonar": {
+      "executor": "@koliveira15/nx-sonarqube:scan"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<ng-container *transloco="let t">
+  <form [formGroup]="formGroup" (submit)="submitted.emit(formGroup.getRawValue())">
+    <mat-grid-list [cols]="columns()" rowHeight="100px">
+      @for (iterator of elements() | keyvalue: orderByPosition; track $index) {
+        <mat-grid-tile [colspan]="iterator.value.position.size?.x ?? 1" [rowspan]="iterator.value.position.size?.y ?? 1">
+          <design-system-dynamic-form-element [element]="iterator.value" [formControlName]="iterator.key" />
+        </mat-grid-tile>
+      }
+    </mat-grid-list>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
+        {{ t('forms.submit') }}
+      </button>
+    </div>
+  </form>
+</ng-container>

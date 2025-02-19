@@ -1,0 +1,11 @@
+import { Route } from '@angular/router';
+import { <%= routing.guard %> } from "@cooperl/authentication/<%= platform %>";
+
+export const appRoutes: Route[] = [
+  {
+    path: '',
+    canActivate: [<%= routing.guard %>],
+    canActivateChild: [<%= routing.guard %>],
+    children: [],
+  }
+];

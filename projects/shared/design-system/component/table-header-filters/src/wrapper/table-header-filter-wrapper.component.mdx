@@ -1,0 +1,19 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as TableHeaderFilterWrapperComponentStories from './table-header-filter-wrapper.component.stories';
+import * as TableWithMultiFiltersStories from '../../../../docs/tables/filters/multi-filters/table-with-multi-filters.stories';
+
+<Meta of={TableHeaderFilterWrapperComponentStories} />
+
+# Table Header Filter Wrapper
+
+This component is used to wrap a filter in a table header (e.g. a dropdown, a date picker, etc.).
+
+<Canvas of={TableHeaderFilterWrapperComponentStories.Default} />
+
+## Advanced example
+
+This is an advanced example from [How to implement table with multiple filters](/story/how-to-table-filters-multiple--docs).
+
+<Canvas of={TableWithMultiFiltersStories.Default} sourceState='none' />
+
+## Troubleshooting

@@ -1,0 +1,25 @@
+<ng-container *transloco="let t">
+  <design-system-table-header-filter-wrapper
+    [filterId]="filterExecutor.filterId()"
+    [testId]="filterExecutor.filterId() + '-wrapper'"
+    (opened)="wrapperOpen = true"
+    (closed)="wrapperOpen = false"
+  >
+    <mat-form-field class="filter-input">
+      <mat-label>{{ t(label()) }}</mat-label>
+      <input
+        matInput
+        [designSystemTestId]="filterExecutor.filterId()"
+        [placeholder]="t(placeholder())"
+        [formControl]="filterControl"
+        [cdkTrapFocusAutoCapture]="wrapperOpen"
+        [cdkTrapFocus]="wrapperOpen"
+      />
+      @if (filterControl.value) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="filterControl.setValue(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+  </design-system-table-header-filter-wrapper>
+</ng-container>

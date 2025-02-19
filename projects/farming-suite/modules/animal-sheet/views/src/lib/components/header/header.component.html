@@ -1,0 +1,73 @@
+@let headerData = headerResource.value();
+
+<ng-container *transloco="let t">
+  <div class="informations">
+    <div class="title-container">
+      <div class="back-and-notifs">
+        @if (isHandset()) {
+          <button mat-button disableRipple designSystemTestId="back" class="animal-sheet-header-action-button">
+            <mat-icon class="action-icon" matIconPrefix>arrow_left_alt</mat-icon>
+            {{ t('farming-suite.animal-sheet.components.header.handset.actions.back') }}
+          </button>
+        }
+
+        <farming-suite-animal-sheet-open-logbook-button class="notifications-btn" testId="open-notifications-panel" />
+      </div>
+
+      <div class="title-and-actions">
+        <h1>{{ t(title(), { animalId: animalId() }) }}</h1>
+        <div class="actions">
+          @if (isHandset()) {
+            <button mat-icon-button disableRipple [matMenuTriggerFor]="menu" aria-label="open actions menu" designSystemTestId="more-actions" class="animal-sheet-header-actions-menu-button">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="animal-sheet-header-actions-menu">
+              <ng-container [ngTemplateOutlet]="actions" />
+            </mat-menu>
+          } @else {
+              <ng-container [ngTemplateOutlet]="actions" />
+          }
+
+          <ng-template #actions>
+            <button mat-button disableRipple designSystemTestId="rename" class="animal-sheet-header-action-button">
+              <mat-icon class="action-icon" matIconPrefix>edit</mat-icon>
+            {{ t('farming-suite.animal-sheet.components.header.actions.rename') }}
+            </button>
+            <button mat-button disableRipple designSystemTestId="print" class="animal-sheet-header-action-button">
+              <mat-icon class="action-icon" matIconPrefix>print</mat-icon>
+            {{ t('farming-suite.animal-sheet.components.header.actions.print') }}
+            </button>
+            <button mat-button disableRipple designSystemTestId="reform" class="animal-sheet-header-action-button">
+              <mat-icon class="action-icon" matIconPrefix svgIcon="reform" />
+            {{ t('farming-suite.animal-sheet.components.header.actions.reform') }}
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="status">
+      <farming-suite-animal-sheet-pork-info designSystemTestId="structure" [title]="t('farming-suite.animals.sow.structure')" [content]="structure() || t('common.loading')" [route]="['structure', headerData?.animal?.structure?.id]" />
+      <farming-suite-animal-sheet-pork-info designSystemTestId="batch" [title]="t('farming-suite.animals.sow.batch')" [content]="headerData?.animal?.batch?.name ?? t('common.loading')" [route]="['batch', headerData?.animal?.batch?.id]" />
+      <farming-suite-animal-sheet-pork-info designSystemTestId="physiological-state" [title]="t('farming-suite.animals.sow.physiological-state.title')" [content]="t(physiologicalStateI18nKey())" [date]="headerData?.animal?.physiologicalState?.startDate" />
+
+      @if (headerResource.isLoading() || headerData?.animal?.parity !== undefined) {
+        <farming-suite-animal-sheet-pork-info designSystemTestId="parity" [title]="t('farming-suite.animals.sow.parity')" [content]="headerData?.animal?.parity ?? t('common.loading')" />
+      }
+    </div>
+
+  </div>
+
+  @let alerts = headerData?.alerts ?? [];
+  <div class="alerts">
+    @if(isHandset()) {
+      <farming-suite-animal-sheet-alert designSystemTestId="alert-wrapper" [title]="t('farming-suite.animal-sheet.components.header.handset.alerts.title', { count: alerts.length})" [childrenAlerts]="alerts" />
+    } @else {
+      @for (alert of alerts; track $index) {
+        <farming-suite-animal-sheet-alert designSystemTestId="alert" [title]="alert.title" [updateDate]="alert.updateDate" />
+      }
+    }
+  </div>
+</ng-container>
+
+<farming-suite-animal-sheet-header-nav designSystemTestId="navigation" />

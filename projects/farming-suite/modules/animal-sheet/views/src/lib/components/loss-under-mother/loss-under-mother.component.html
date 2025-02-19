@@ -1,0 +1,17 @@
+<mat-card appearance="outlined" class="card" *transloco="let t;prefix:'farming-suite.animal-sheet.components.loss-under-mother'">
+    <mat-card-header class="header-container">
+        <div class="title-container">
+            <span class="title">{{ t('title') }}</span>
+            <mat-chip class="chip">{{ t('percent-loss', {value: this.lossUnderMotherPercent() | percent:'2.0-1'}) }}</mat-chip>
+        </div>
+        <button class="button" mat-button [matTooltip]="t('under-construction')">
+            <mat-icon>tune</mat-icon>
+            <span>{{t('filter')}}</span>
+        </button>
+    </mat-card-header>
+    <mat-card-content class="content-container">
+        @for (item of informationCardItems(); track $index) {
+            <farming-suite-animal-sheet-information-card class="information-card" [value]="item.value" [subtitle]="item.subtitle"/>
+        }
+    </mat-card-content>
+</mat-card>

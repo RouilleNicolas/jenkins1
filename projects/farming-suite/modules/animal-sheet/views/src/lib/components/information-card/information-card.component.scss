@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+:host {
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    @include mat.card-overrides(
+      (
+        outlined-container-color: var(--Grey-Scale-50, #f3f6f6),
+        outlined-container-shape: 12px,
+        outlined-outline-width: 0,
+      )
+    );
+
+    .header-container {
+      display: flex;
+      align-items: baseline;
+      align-self: stretch;
+      gap: 0;
+      .value {
+        color: var(--Brand-Groin-forestier, #012f32);
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 120%;
+      }
+      .suffix {
+        color: var(--Brand-Groin-forestier, #012f32);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 120%;
+      }
+    }
+    .subtitle {
+      color: var(--Brand-Groin-forestier, #012f32);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 120%;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as TableHeaderFilterTextComponentStories from './table-header-filter-text.component.stories';
+import * as TableWithMultiFiltersStories from '../../../../docs/tables/filters/multi-filters/table-with-multi-filters.stories';
+
+<Meta of={TableHeaderFilterTextComponentStories} />
+
+# Table Header Filter Text
+
+This component is used to apply a filter to a table column using text input.
+
+This is a composite component using both the [Table Header Filter Wrapper](/story/components-table-header-filter-wrapper--docs) and the [Material UI Input](https://material.angular.io/components/input/overview) components.
+
+Also, this component uses the [Table Header Filters Service](/story/services-table-header-filters--docs) to manage the filters and allow you to perform multi filtering.
+
+<Canvas of={TableHeaderFilterTextComponentStories.Default} />
+
+## Advanced example
+
+This is an advanced example from [How to implement table with multiple filters](/story/how-to-table-filters-multiple--docs).
+
+<Canvas of={TableWithMultiFiltersStories.Default} sourceState='none' />
+
+## Troubleshooting

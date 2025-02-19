@@ -1,0 +1,42 @@
+<mat-form-field *transloco="let t" [appearance]="formFieldAppearance()" [floatLabel]="formFieldFloatLabel()">
+  <mat-label>{{ t(element().label ?? '') }}</mat-label>
+
+  <ng-container matPrefix *ngIf="element().prefix as prefix">
+    <span matTextPrefix *ngIf="prefix.text">{{ t(prefix.text) }}</span>
+    <mat-icon matIconPrefix *ngIf="prefix.icon">{{ prefix.icon }}</mat-icon>
+  </ng-container>
+
+  <input
+    matInput
+    [formControl]="formControl"
+    type="number"
+    [placeholder]="t(placeholder())"
+    [min]="element().number.validation?.min ?? null"
+    [max]="element().number.validation?.max ?? null"
+  />
+
+  <ng-container matSuffix *ngIf="element().suffix as suffix">
+    <span matTextSuffix *ngIf="suffix.text">{{ t(suffix.text) }}</span>
+    <mat-icon matIconSuffix *ngIf="suffix.icon">{{ suffix.icon }}</mat-icon>
+  </ng-container>
+
+  @if (element().hint; as hint) {
+    <mat-hint [align]="hintAlign()">{{ t(hint.content) }}</mat-hint>
+  }
+
+  @if (element().clearable && formControl.value) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="formControl.setValue(null)">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+
+  @if (formControl.invalid) {
+    <mat-error>
+      <design-system-dynamic-form-errors
+        [errors]="formControl.errors ?? {}"
+        [customRequiredMessage]="element().field?.errorRequiredMessage ?? ''"
+        [customValidationMessage]="element().validation?.errorValidationMessage ?? ''"
+      />
+    </mat-error>
+  }
+</mat-form-field>

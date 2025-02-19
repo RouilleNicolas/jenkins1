@@ -1,0 +1,162 @@
+@use '@angular/material' as mat;
+
+:host {
+  .card {
+    display: flex;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    gap: 24px;
+
+    @include mat.card-overrides((outlined-container-color: var(--Brand-Boudin-blanc, #fff),
+        outlined-container-shape: 16px,
+        outlined-outline-width: 0,
+      ));
+
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      align-self: stretch;
+
+      .title {
+        color: var(--Brand-Groin-forestier, #012f32);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 120%;
+      }
+
+      .chip {
+        background: var(--Brand-Cochon-de-lait, #ffd3e6);
+        @include mat.chips-overrides((outline-width: 0,
+            elevated-selected-container-color: var(--Brand-Cochon-de-lait, #ffd3e6),
+            label-text-color: var(--Brand-Groin-forestier, #012f32),
+            label-text-size: 14px,
+            label-text-weight: 500,
+            label-text-line-height: 160%,
+          ));
+      }
+    }
+
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      align-self: stretch;
+
+      .average-container {
+        display: flex;
+        align-items: flex-start;
+        align-self: stretch;
+        gap: 8px;
+
+        .information-card {
+          flex: 1;
+        }
+      }
+
+      .sum-container {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        align-self: stretch;
+
+        .born-average {
+          display: flex;
+          align-items: baseline;
+          gap: 4px;
+          flex: 33.33%;
+
+          .value {
+            color: var(--Brand-Bleu-abreuvoir, #007c8f);
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 120%;
+          }
+
+          .suffix {
+            color: var(--Brand-Groin-forestier, #012f32);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 160%;
+          }
+        }
+
+        .loss-percent-container {
+          display: flex;
+          justify-content: center;
+          align-items: baseline;
+          gap: 16px;
+          flex: 66.66%;
+
+          .chart-container {
+            width: 64px;
+            height: 32px;
+          }
+
+          .loss-percent {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            flex: 1;
+
+            .value {
+              color: var(--Brand-Bleu-abreuvoir, #007c8f);
+              font-size: 24px;
+              font-weight: 600;
+              line-height: 120%;
+            }
+
+            .suffix {
+              color: var(--Brand-Groin-forestier, #012f32);
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 160%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.handset {
+    .card {
+      padding: 0;
+      gap: 32px;
+
+      .content-container {
+        .average-container {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-start;
+          align-self: stretch;
+          gap: 8px;
+
+          .information-card {
+            flex: 1;
+          }
+
+          .information-card:last-child {
+            flex: 100%;
+          }
+        }
+
+        .sum-container {
+          .born-average {
+            flex: 1;
+          }
+
+          .loss-percent-container {
+            flex: 1;
+            flex-direction: column-reverse;
+            gap: 8px;
+          }
+        }
+      }
+    }
+  }
+}

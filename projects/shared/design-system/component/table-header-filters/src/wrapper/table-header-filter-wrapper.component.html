@@ -1,0 +1,14 @@
+<button mat-icon-button
+        [matMenuTriggerFor]="filterMenu"
+        (menuOpened)="opened.emit()"
+        (menuClosed)="closed.emit()">
+  <mat-icon>{{ filterIcon() }}</mat-icon>
+</button>
+
+<mat-menu #filterMenu="matMenu" class="table-header-filter">
+  <div tabindex="0"
+       (click)="$event.stopPropagation()"
+       (keydown)="$event.stopPropagation()">
+    <ng-content />
+  </div>
+</mat-menu>

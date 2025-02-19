@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "create-sonar-project": {
+      "implementation": "./src/create-sonar-project/executor",
+      "schema": "./src/create-sonar-project/schema.json",
+      "description": "Create a sonar project if it does not exists"
+    }
+  }
+}

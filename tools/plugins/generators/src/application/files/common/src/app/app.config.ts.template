@@ -1,0 +1,24 @@
+import { provideHttpClient, <%= appConfig.withInterceptorFn %> } from '@angular/common/http';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { <%= appConfig.authenticationEsmImport %> } from '@cooperl/authentication/<%= platform %>';
+import { provideI18n } from '@cooperl/i18n';
+import { appRoutes } from './app.routes';
+import { provideEcharts } from 'ngx-echarts';
+import { provideIcons } from '@cooperl/design-system';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(appRoutes, withComponentInputBinding()),
+    <%= appConfig.provideHttpClientFn %>,
+    provideAuthentication(),
+    provideI18n(),
+    provideIcons(),
+    provideAnimationsAsync(),
+    provideDateFnsAdapter(),
+    provideEcharts(),
+  ],
+};
