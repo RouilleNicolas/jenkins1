@@ -1,0 +1,241 @@
+{
+  "common": {
+    "change-order": "Modifier l'ordre",
+    "loading": "Chargement..."
+  },
+  "default": {
+    "checkbox": {
+      "master": "Tout sélectionner"
+    }
+  },
+  "farming-suite": {
+    "animal-sheet": {
+      "components": {
+        "alert": {
+          "update-date": "Mise a jour le {{ update-date }}"
+        },
+        "annual-production": {
+          "suffix": "porcelets sevrée / truie productives / an",
+          "title": "Productivité annuelle"
+        },
+        "header": {
+          "actions": {
+            "print": "Imprimer",
+            "reform": "À réformer",
+            "rename": "Renommer"
+          },
+          "handset": {
+            "actions": {
+              "back": "Retour"
+            },
+            "alerts": {
+              "title": "{{ count }} alertes en cours"
+            }
+          },
+          "status": {
+            "physiological-state": {
+              "update-date": "Depuis le"
+            }
+          },
+          "title": {
+            "animal": "Fiche animal n°{{ animalId }}",
+            "boar": "Fiche verrat n°{{ animalId }}",
+            "sow": "Fiche truie n°{{ animalId }}"
+          }
+        },
+        "logbook": {
+          "button": {
+            "aria-label": "Ouvrir le carnet de bord",
+            "label": "Carnet de bord"
+          }
+        },
+        "loss-under-mother": {
+          "dieback": "Dépérissement",
+          "digestive": "Digestif",
+          "filter": "Filtrer",
+          "percent-loss": "{{value}} de pertes sous la mère",
+          "puny": "Chétifs",
+          "title": "Perte sous la mère",
+          "under-construction": "👷‍♂️ En construction"
+        },
+        "measures": {
+          "date": "Le",
+          "insemination": "Régumate/IA",
+          "maternity-entry": "Entrée Maternité",
+          "maternity-exit": "Sortie Maternité",
+          "other": "Autre",
+          "pregnant": "Gestante",
+          "quarantine-entry": "Entrée Quarantaine",
+          "quarantine-exit": "Sortie Quarantaine",
+          "thickness": "mm",
+          "weight": "kg"
+        },
+        "notifications": {
+          "mobile": {
+            "button": {
+              "aria-label": "Afficher les notifications"
+            }
+          },
+          "title": "Notifications"
+        },
+        "performance-table": {
+          "average": "Moyenne",
+          "content": {
+            "career": "Rang {{value}}"
+          },
+          "description": "Tableau de performance pour chaque rang",
+          "headers": {
+            "adopted": "Adopté",
+            "career": "Carrière",
+            "doses-number": "Nb. de doses (par saillie)",
+            "eld-input": "Eld entrée mater",
+            "eld-output": "Eld sortie mater",
+            "gestation-duration": "Durée de gestation",
+            "iss1": "ISS1",
+            "issf": "ISSF",
+            "mating-number": "Nb. de saillie",
+            "mn": "MN",
+            "mo": "MO",
+            "nt": "NT",
+            "nv": "NV",
+            "observation": "Observation",
+            "removed": "Retiré"
+          }
+        },
+        "pork-info": {
+          "date-prefix": "Depuis le"
+        },
+        "reproduction": {
+          "abortion": {
+            "suffix": "Avortement"
+          },
+          "average-gestation-length": {
+            "suffix": "de gestation"
+          },
+          "average-lactation-length": {
+            "suffix": "de lactation"
+          },
+          "day-suffix": "j.",
+          "farrowing-interval": {
+            "suffix": "d'IEMB"
+          },
+          "interval-weaning-fertilizing-service": {
+            "suffix": "d'ISSF"
+          },
+          "return": {
+            "suffix": "Retour"
+          },
+          "title": "Reproduction"
+        },
+        "results-by-litter": {
+          "born": {
+            "suffix": "nés totaux"
+          },
+          "born-alive": {
+            "subtitle": "{{value}} de pertes",
+            "suffix": "NV"
+          },
+          "born-loss": {
+            "suffix": "de pertes"
+          },
+          "litters-weaned-on-farm": "{{ value }} portés sur l’élevage",
+          "mummified": {
+            "suffix": "MO"
+          },
+          "stillborn": {
+            "suffix": "MN"
+          },
+          "title": "Résultats par portés"
+        },
+        "start-career": {
+          "subtitle-first-ia": "Âge à la première IA",
+          "subtitle-giving-birth": "Âge à la première mise bas",
+          "title": "Début de carrière"
+        }
+      },
+      "pages": {
+        "career": {
+          "annual-productivity": {
+            "suffix": "porcs produit - truie productive/an",
+            "title": "Productivité annuelle"
+          },
+          "average-weaned": {
+            "suffix": "sevrés par portée",
+            "title": "Sevrés moyen"
+          },
+          "fattening-loss-rate": {
+            "suffix": "Porcs perdus en engraissement",
+            "title": "Taux de pertes en engraissement"
+          },
+          "nav-tab-title": "Carrière",
+          "ps-loss-rate": {
+            "suffix": "Porcelets perdus en PS",
+            "title": "Taux de pertes en PS"
+          },
+          "route-title": "Fiche Animal - Carrière"
+        },
+        "comments": {
+          "nav-tab-title": "Remarques",
+          "route-title": "Fiche Animal - Remarques"
+        },
+        "general": {
+          "nav-tab-title": "Général",
+          "route-title": "Fiche Animal - Général"
+        },
+        "internal-movement": {
+          "nav-tab-title": "Mouvements internes",
+          "route-title": "Fiche Animal - Mouvements internes"
+        },
+        "main-layout": {
+          "title": "Fiche animal"
+        },
+        "measures": {
+          "nav-tab-title": "Mesures",
+          "route-title": "Fiche Animal - Mesures"
+        },
+        "treatments": {
+          "nav-tab-title": "Traitements",
+          "route-title": "Fiche Animal - Traitements"
+        }
+      }
+    },
+    "animals": {
+      "sow": {
+        "batch": "Bande",
+        "parity": "Rang",
+        "physiological-state": {
+          "culled": "Réformée",
+          "fattening": "Engraissement",
+          "lactation": "Lactation",
+          "maternity": "Maternité",
+          "title": "Stade physiologique",
+          "unknown": "Inconnu"
+        },
+        "structure": "Structure"
+      }
+    }
+  },
+  "forms": {
+    "submit": "Valider",
+    "validation": {
+      "matDatepickerParse": "La date n'est pas valide",
+      "max": "La valeur maximum est {{max}}",
+      "maxDate": "La date maximum est le {{max}}",
+      "maxlength": "Ce champ doit contenir au plus {{requiredLength}} caractères",
+      "min": "La valeur minimum est {{min}}",
+      "minDate": "La date minimum est le {{min}}",
+      "minlength": "Ce champ doit contenir au moins {{requiredLength}} caractères",
+      "pattern": "Le format de ce champ est invalide",
+      "required": "Ce champ est obligatoire",
+      "text-size": "Le champ doit contenir {{required}} caractères"
+    }
+  },
+  "paginator": {
+    "firstPageLabel": "Première page",
+    "itemsPerPageLabel": "Éléments par page",
+    "lastPageLabel": "Dernière page",
+    "nextPageLabel": "Page suivante",
+    "previousPageLabel": "Page précédente",
+    "rangeLabel": "{{firstElement}} - {{lastElement}} sur {{totalElements}}"
+  }
+}

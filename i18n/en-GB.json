@@ -1,0 +1,241 @@
+{
+  "common": {
+    "change-order": "Change order",
+    "loading": "Loading..."
+  },
+  "default": {
+    "checkbox": {
+      "master": "Select all"
+    }
+  },
+  "farming-suite": {
+    "animal-sheet": {
+      "components": {
+        "alert": {
+          "update-date": "Updated at {{ update-date }}"
+        },
+        "annual-production": {
+          "suffix": "weaned piglets / productive sow / year",
+          "title": "Annual productivity"
+        },
+        "header": {
+          "actions": {
+            "print": "Print",
+            "reform": "To reform",
+            "rename": "Rename"
+          },
+          "handset": {
+            "actions": {
+              "back": "Back"
+            },
+            "alerts": {
+              "title": "{{ count }} active alerts"
+            }
+          },
+          "status": {
+            "physiological-state": {
+              "update-date": "Since"
+            }
+          },
+          "title": {
+            "animal": "Animal sheet n°{{ animalId }}",
+            "boar": "Boar sheet n°{{ animalId }}",
+            "sow": "Sow sheet n°{{ animalId }}"
+          }
+        },
+        "logbook": {
+          "button": {
+            "aria-label": "Display logbook",
+            "label": "Logbook"
+          }
+        },
+        "loss-under-mother": {
+          "dieback": "Dieback",
+          "digestive": "Digestive",
+          "filter": "Filter",
+          "percent-loss": "{{value}} lost under the mother",
+          "puny": "Puny",
+          "title": "Loss under mother",
+          "under-construction": "👷‍♂️ Under construction"
+        },
+        "measures": {
+          "date": "The",
+          "insemination": "Regumate/AI",
+          "maternity-entry": "Maternity Entry",
+          "maternity-exit": "Maternity Exit",
+          "other": "Other",
+          "pregnant": "Pregnant",
+          "quarantine-entry": "Quarantine Entry",
+          "quarantine-exit": "Quarantine Exit",
+          "thickness": "mm",
+          "weight": "kg"
+        },
+        "notifications": {
+          "mobile": {
+            "button": {
+              "aria-label": "Display notifications"
+            }
+          },
+          "title": "Notifications"
+        },
+        "performance-table": {
+          "average": "Average",
+          "content": {
+            "career": "Rank {{value}}"
+          },
+          "description": "Performance table for each rank",
+          "headers": {
+            "adopted": "Adopted",
+            "career": "Career",
+            "doses-number": "Nb. of doses (per projections)",
+            "eld-input": "Eld input mater",
+            "eld-output": "Eld output mater",
+            "gestation-duration": "Gestation duration",
+            "iss1": "ISS1",
+            "issf": "ISSF",
+            "mating-number": "Nb. of projections",
+            "mn": "MN",
+            "mo": "MO",
+            "nt": "NT",
+            "nv": "NV",
+            "observation": "Observation",
+            "removed": "Removed"
+          }
+        },
+        "pork-info": {
+          "date-prefix": "Since"
+        },
+        "reproduction": {
+          "abortion": {
+            "suffix": "Abortion"
+          },
+          "average-gestation-length": {
+            "suffix": "of gestation"
+          },
+          "average-lactation-length": {
+            "suffix": "of lactation"
+          },
+          "day-suffix": "d.",
+          "farrowing-interval": {
+            "suffix": "IBB"
+          },
+          "interval-weaning-fertilizing-service": {
+            "suffix": "IWFS"
+          },
+          "return": {
+            "suffix": "Return"
+          },
+          "title": "Reproduction"
+        },
+        "results-by-litter": {
+          "born": {
+            "suffix": "total born"
+          },
+          "born-alive": {
+            "subtitle": "{{value}} loss",
+            "suffix": "BA"
+          },
+          "born-loss": {
+            "suffix": "loss"
+          },
+          "litters-weaned-on-farm": "{{ value }} carried on breeding",
+          "mummified": {
+            "suffix": "MU"
+          },
+          "stillborn": {
+            "suffix": "S"
+          },
+          "title": "Result per litter"
+        },
+        "start-career": {
+          "subtitle-first-ia": "Age at first IA",
+          "subtitle-giving-birth": "Age at first giving birth",
+          "title": "Career Start"
+        }
+      },
+      "pages": {
+        "career": {
+          "annual-productivity": {
+            "suffix": "pigs produced - productive sow/year",
+            "title": "Annual productivity"
+          },
+          "average-weaned": {
+            "suffix": "weaned per litter",
+            "title": "Average weaned"
+          },
+          "fattening-loss-rate": {
+            "suffix": "Pigs lost in fattening",
+            "title": "Fattening loss rate"
+          },
+          "nav-tab-title": "Career",
+          "ps-loss-rate": {
+            "suffix": "Piglets lost in PS",
+            "title": "PS loss rate"
+          },
+          "route-title": "Animal Sheet - Career"
+        },
+        "comments": {
+          "nav-tab-title": "Comments",
+          "route-title": "Animal Sheet - Comments"
+        },
+        "general": {
+          "nav-tab-title": "General",
+          "route-title": "Animal Sheet - General"
+        },
+        "internal-movement": {
+          "nav-tab-title": "Internal movement",
+          "route-title": "Animal Sheet - Internal Movement"
+        },
+        "main-layout": {
+          "title": "Animal sheet"
+        },
+        "measures": {
+          "nav-tab-title": "Measures",
+          "route-title": "Animal Sheet - Measures"
+        },
+        "treatments": {
+          "nav-tab-title": "Treatments",
+          "route-title": "Animal Sheet - Treatments"
+        }
+      }
+    },
+    "animals": {
+      "sow": {
+        "batch": "Batch",
+        "parity": "Parity",
+        "physiological-state": {
+          "culled": "Culled",
+          "fattening": "Fattening",
+          "lactation": "Lactation",
+          "maternity": "Maternity",
+          "title": "Physiological state",
+          "unknown": "Unknown"
+        },
+        "structure": "Structure"
+      }
+    }
+  },
+  "forms": {
+    "submit": "Submit",
+    "validation": {
+      "matDatepickerParse": "The date is not valid",
+      "max": "The maximum value is {{max}}",
+      "maxDate": "The maximum date is {{max}}",
+      "maxlength": "This field must contain at most {{requiredLength}} characters",
+      "min": "The minimum value is {{min}}",
+      "minDate": "The minimum date is {{min}}",
+      "minlength": "This field must contain at least {{requiredLength}} characters",
+      "pattern": "The format of this field is invalid",
+      "required": "This field is required",
+      "text-size": "The field must contain {{required}} characters"
+    }
+  },
+  "paginator": {
+    "firstPageLabel": "First page",
+    "itemsPerPageLabel": "Items per page",
+    "lastPageLabel": "Last page",
+    "nextPageLabel": "Next page",
+    "previousPageLabel": "Previous page",
+    "rangeLabel": "{{firstElement}} - {{lastElement}} of {{totalElements}}"
+  }
+}

@@ -1,0 +1,17 @@
+services:
+  keycloak:
+    build: ./keycloak/
+    container_name: fss-keycloak
+    ports:
+      - "8088:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+  frontend:
+    build: .
+    container_name: fss-frontend
+    ports:
+      - "4010:80"
+    depends_on:
+      - keycloak
+
