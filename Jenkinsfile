@@ -18,6 +18,7 @@ pipeline {
         DOCKER_TAG = "${env.BRANCH_NAME == 'master' ? 'latest' : env.BRANCH_NAME}"
         DOCKER_TAG_COMMIT = "${env.BRANCH_NAME}-${env.GIT_COMMIT.take(7)}"
         APP_WORKSPACE = "farming-suite-web"
+        NODE_VERSION = "18.19.1"
     }
     
     options {
@@ -27,10 +28,34 @@ pipeline {
     }
 
     stages {
+        stage('Setup Node.js') {
+            steps {
+                container('node') {
+                    sh '''
+                        echo "Installing nvm..."
+                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+                        export NVM_DIR="$HOME/.nvm"
+                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                        
+                        echo "Installing Node.js ${NODE_VERSION}..."
+                        nvm install ${NODE_VERSION}
+                        nvm use ${NODE_VERSION}
+                        
+                        echo "Node.js version:"
+                        node --version
+                    '''
+                }
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 container('node') {
                     sh '''
+                        export NVM_DIR="$HOME/.nvm"
+                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                        nvm use ${NODE_VERSION}
+                        
                         echo "Installing dependencies..."
                         # First try with frozen lockfile
                         yarn install --frozen-lockfile || {
@@ -47,6 +72,10 @@ pipeline {
             steps {
                 container('node') {
                     sh '''
+                        export NVM_DIR="$HOME/.nvm"
+                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                        nvm use ${NODE_VERSION}
+                        
                         echo "Building Angular application..."
                         yarn nx build farming-suite-web --configuration=production
                     '''
