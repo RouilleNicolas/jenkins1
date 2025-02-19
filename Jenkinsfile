@@ -43,7 +43,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        yarn nx build ${APP_WORKSPACE} --configuration=production
+                        yarn nx build farming-suite-web --configuration=production
                     '''
                 }
             }
