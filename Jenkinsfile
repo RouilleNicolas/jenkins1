@@ -38,34 +38,8 @@ pipeline {
                         yarn install --immutable 
 
                         echo "Workspace content:"
-                        echo "Workspace content:"
                         ls -la
 
-                    '''
-                }
-            }
-        }
-
-        stage('Verify Environment') {
-            steps {
-                container('node') {
-                    sh '''
-                        echo "Node version: $(node --version)"
-                        echo "Yarn version: $(yarn --version)"
-                        echo "Angular CLI version:"
-                        yarn ng version
-                        echo "Nx version:"
-                        yarn nx --version
-                        
-                        echo "Workspace content:"
-                        ls -la
-
-                        echo " pwd"
-                        pwd
-                        
-                        # Vérifier la configuration Nx
-                        echo "Nx configuration:"
-                        cat nx.json || echo "nx.json not found"
                     '''
                 }
             }
