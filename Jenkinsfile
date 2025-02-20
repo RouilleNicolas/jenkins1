@@ -59,6 +59,9 @@ pipeline {
                         
                         echo "Workspace content:"
                         ls -la
+
+                        echo " pwd"
+                        pwd
                         
                         # Vérifier la configuration Nx
                         echo "Nx configuration:"
@@ -73,7 +76,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        yarn nx reset  # Reset Nx cache
+                        nx reset  # Reset Nx cache
                         nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
                     '''
                 }
