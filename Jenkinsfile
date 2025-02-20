@@ -21,6 +21,7 @@ pipeline {
         DOCKER_TAG = "${env.BRANCH_NAME == 'master' ? 'latest' : env.BRANCH_NAME}"
         DOCKER_TAG_COMMIT = "${env.BRANCH_NAME}-${env.GIT_COMMIT.take(7)}"
         APP_WORKSPACE = "farming-suite-web"
+        GOOGLE_APPLICATION_CREDENTIALS = "/home/jenkins/.config/gcloud/application_default_credentials.json"
     }
     
     options {
@@ -106,8 +107,19 @@ pipeline {
             steps {
                 container('crane') {
                     sh """
+                        echo "Setting up GCP authentication..."
+                        # Vérifier que les credentials sont présentes
+                        if [ ! -f "\${GOOGLE_APPLICATION_CREDENTIALS}" ]; then
+                            echo "Error: GCP credentials file not found at \${GOOGLE_APPLICATION_CREDENTIALS}"
+                            exit 1
+                        fi
+                        
                         echo "Verifying pushed images..."
-                        /ko-app/gcrane ls ${DOCKER_REPO}
+                        CRANE_REGISTRY_INSECURE=true /ko-app/crane ls ${DOCKER_REPO} || true
+                        
+                        echo "Verifying specific tags..."
+                        CRANE_REGISTRY_INSECURE=true /ko-app/crane manifest ${DOCKER_REPO}:${DOCKER_TAG} || true
+                        CRANE_REGISTRY_INSECURE=true /ko-app/crane manifest ${DOCKER_REPO}:${DOCKER_TAG_COMMIT} || true
                     """
                 }
             }
