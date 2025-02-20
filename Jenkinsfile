@@ -69,7 +69,7 @@ pipeline {
                         echo "Installing dependencies..."
                         yarn install --immutable 2>&1 | grep -v "warning.*lmdb" || true
                         
-                        echo "Verifying Angular installation:"
+                        echo "Verifying Angular installation v2:"
                         yarn ng version
                         
                         echo "Verifying Nx workspace:"
