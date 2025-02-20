@@ -29,27 +29,18 @@ pipeline {
     }
 
     stages {
-        stage('Setup Environment') {
+        stage('Verify Environment') {
             steps {
                 container('node') {
                     sh '''
-                        echo "Node.js version: $(node --version)"
-                        
-                        # Configuration de Yarn via corepack
-                        corepack enable
-                        corepack prepare yarn@4.4.0 --activate
-                        
+                        echo "Node version: $(node --version)"
                         echo "Yarn version: $(yarn --version)"
-                        
-                        # Installer les dépendances Nx et Angular
-                        yarn add -D @nx/workspace @nx/angular @angular/cli nx
-                        
-                        # Vérifier l'installation de Nx et ses plugins
-                        echo "Nx installation:"
+                        echo "Angular CLI version:"
+                        yarn ng version
+                        echo "Nx version:"
                         yarn nx --version
                         
-                        echo "Nx Angular plugin:"
-                        yarn list @nx/angular
+    
                         
                         # Vérifier la configuration Nx
                         echo "Nx configuration:"
@@ -67,17 +58,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Installing dependencies..."
-                        yarn install --immutable 1>/dev/null 2>/dev/null || true
-                        
-                        echo "Verifying Angular installation v2:"
-                        yarn ng version
-                        
-                        echo "Verifying Nx workspace:"
-                        echo "Nx Version:"
-                        yarn nx --version
-                        
-                        echo "Nx Angular plugin:"
-                        yarn info @nx/angular version || true
+                        yarn install --immutable --inline-builds
                     '''
                 }
             }
@@ -88,11 +69,6 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        echo "Project configuration:"
-                        cat apps/farming-suite-web/project.json || echo "project.json not found"
-                        
-                        # Utiliser yarn nx avec le plugin Angular
-                        echo "Running nx build..."
                         yarn nx build farming-suite-web --configuration=production --skip-nx-cache
                     '''
                 }
