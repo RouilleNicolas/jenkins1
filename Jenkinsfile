@@ -40,10 +40,12 @@ pipeline {
                         corepack prepare yarn@4.4.0 --activate
                         
                         echo "Yarn version: $(yarn --version)"
+                        
+                        # Ajouter les dépendances Nx manquantes
+                        yarn add -D @nx/workspace @nx/angular @angular/cli nx
+                        
                         echo "Workspace content:"
                         ls -la
-                        echo "Package.json content:"
-                        cat package.json
                     '''
                 }
             }
@@ -54,19 +56,11 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Installing dependencies..."
-                        # Ignorer les avertissements de lmdb qui n'affectent pas le fonctionnement
                         yarn install --immutable 2>&1 | grep -v "warning.*lmdb" || true
                         
-                        echo "Verifying node_modules:"
-                        ls -la node_modules/@nx || echo "No @nx directory found"
-                        ls -la node_modules/@angular || echo "No @angular directory found"
-                        
-                        echo "Checking nx.json:"
-                        cat nx.json || echo "No nx.json found"
-                        
-                        # Vérifier que nx est disponible
-                        echo "Nx binaries:"
-                        ls -la node_modules/.bin/nx* || echo "No nx binaries found"
+                        echo "Verifying Nx installation:"
+                        yarn nx --version
+                        yarn nx list
                     '''
                 }
             }
@@ -77,13 +71,10 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        echo "Current directory: $(pwd)"
-                        echo "Directory content:"
-                        ls -la
                         
-                        # Utiliser yarn pour exécuter nx
+                        # Utiliser yarn nx directement
                         echo "Running nx build..."
-                        yarn nx run farming-suite-web:build --configuration=production
+                        yarn nx build farming-suite-web --configuration=production --skip-nx-cache
                     '''
                 }
             }
