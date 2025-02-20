@@ -14,7 +14,7 @@ kind: Pod
 spec:
   containers:
   - name: node
-    image: docker.io/library/node:20.11.1-slim@sha256:f3299f16246c71ab8b304c3e12b29905a45e432ffa2355a54aca3e56195a8e92
+    image: docker.io/library/node:22-bookworm-slim
     command:
     - cat
     tty: true
@@ -49,6 +49,8 @@ spec:
         DOCKER_TAG = "${env.BRANCH_NAME == 'master' ? 'latest' : env.BRANCH_NAME}"
         DOCKER_TAG_COMMIT = "${env.BRANCH_NAME}-${env.GIT_COMMIT.take(7)}"
         APP_WORKSPACE = "farming-suite-web"
+        HUSKY = "0"
+        NODE_ENV = "development"
     }
     
     options {
@@ -58,16 +60,16 @@ spec:
     }
 
     stages {
-        stage('Check Node Version') {
+        stage('Setup') {
             steps {
                 container('node') {
                     sh '''
-                        NODE_VERSION=$(node --version)
-                        echo "Node.js version: $NODE_VERSION"
-                        if [ "$NODE_VERSION" != "v20.11.1" ]; then
-                            echo "Error: Expected Node.js v20.11.1 but got $NODE_VERSION"
-                            exit 1
-                        fi
+                        echo "Node.js version: $(node --version)"
+                        
+                        # Enable Corepack (for yarn version management)
+                        corepack enable
+                        
+                        echo "Yarn version: $(yarn --version)"
                     '''
                 }
             }
@@ -78,11 +80,7 @@ spec:
                 container('node') {
                     sh '''
                         echo "Installing dependencies..."
-                        yarn install --frozen-lockfile || {
-                            echo "Lockfile needs updating, running normal install..."
-                            yarn install
-                            echo "WARNING: yarn.lock has been updated and should be committed to the repository"
-                        }
+                        yarn install --immutable
                     '''
                 }
             }
