@@ -38,8 +38,9 @@ pipeline {
                         yarn install --immutable 
 
                         echo "Workspace content:"
+                        echo "Workspace content:"
                         ls -la
-                        
+
                     '''
                 }
             }
