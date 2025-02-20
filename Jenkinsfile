@@ -14,12 +14,12 @@ pipeline {
     }
     
     environment {
+        HUSKY = "0"
+        NODE_ENV = "development"
         DOCKER_REPO = "gcr.io/sandbox-csuite/csuite/angular-csuitev2"
         DOCKER_TAG = "${env.BRANCH_NAME == 'master' ? 'latest' : env.BRANCH_NAME}"
         DOCKER_TAG_COMMIT = "${env.BRANCH_NAME}-${env.GIT_COMMIT.take(7)}"
         APP_WORKSPACE = "farming-suite-web"
-        HUSKY = "0"
-        NODE_ENV = "development"
     }
     
     options {
@@ -29,17 +29,13 @@ pipeline {
     }
 
     stages {
-        stage('Setup') {
+        stage('Verify Environment') {
             steps {
                 container('node') {
                     sh '''
                         echo "Node.js version: $(node --version)"
                         echo "Yarn version: $(yarn --version)"
-                        
-                        # Vérifier que nous avons la bonne version de Node.js
-                        if [ "$(node --version)" != "v22.0.0" ]; then
-                            echo "Warning: Node.js version mismatch. Expected v22.0.0"
-                        fi
+                        echo "Nx version: $(nx --version || npx nx --version)"
                     '''
                 }
             }
@@ -61,13 +57,13 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        yarn nx build farming-suite-web --configuration=production
+                        npx nx run farming-suite-web:build --configuration=production
                     '''
                 }
             }
         }
 
-        stage('Build and Push Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 container('kaniko') {
                     sh """
