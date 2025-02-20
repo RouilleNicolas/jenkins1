@@ -29,11 +29,16 @@ pipeline {
     }
 
     stages {
-        stage('Verify Environment') {
+        stage('Setup Environment') {
             steps {
                 container('node') {
                     sh '''
                         echo "Node.js version: $(node --version)"
+                        
+                        # Configuration de Yarn via corepack
+                        corepack enable
+                        corepack prepare yarn@4.4.0 --activate
+                        
                         echo "Yarn version: $(yarn --version)"
                         echo "Workspace content:"
                         ls -la
@@ -58,6 +63,10 @@ pipeline {
                         
                         echo "Checking nx.json:"
                         cat nx.json || echo "No nx.json found"
+                        
+                        # Vérifier que nx est disponible
+                        echo "Nx binaries:"
+                        ls -la node_modules/.bin/nx* || echo "No nx binaries found"
                     '''
                 }
             }
@@ -72,9 +81,9 @@ pipeline {
                         echo "Directory content:"
                         ls -la
                         
-                        # Essayer d'exécuter nx directement depuis node_modules
+                        # Utiliser yarn pour exécuter nx
                         echo "Running nx build..."
-                        ./node_modules/.bin/nx run farming-suite-web:build --configuration=production
+                        yarn nx run farming-suite-web:build --configuration=production
                     '''
                 }
             }
