@@ -73,7 +73,11 @@ pipeline {
                         yarn ng version
                         
                         echo "Verifying Nx workspace:"
-                        yarn nx list @nx/angular
+                        echo "Nx Version:"
+                        yarn nx --version
+                        
+                        echo "Nx Angular plugin:"
+                        yarn info @nx/angular version || true
                     '''
                 }
             }
