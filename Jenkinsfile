@@ -35,6 +35,12 @@ pipeline {
                     sh '''
                         echo "Installing dependencies..."
                         yarn install --immutable --inline-builds
+                        
+                        echo "Verifying installed packages..."
+                        yarn why browserslist
+                        yarn list browserslist
+                        yarn list @angular-devkit/build-angular
+                        yarn list ng-packagr
                     '''
                 }
             }
@@ -51,14 +57,12 @@ pipeline {
                         echo "Nx version:"
                         yarn nx --version
                         
-    
+                        echo "Workspace content:"
+                        ls -la
                         
                         # Vérifier la configuration Nx
                         echo "Nx configuration:"
                         cat nx.json || echo "nx.json not found"
-                        
-                        echo "Workspace content:"
-                        ls -la
                     '''
                 }
             }
@@ -69,7 +73,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        yarn nx build farming-suite-web --configuration=production --skip-nx-cache
+                        yarn nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
                     '''
                 }
             }
