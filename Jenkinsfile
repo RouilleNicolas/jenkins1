@@ -41,8 +41,19 @@ pipeline {
                         
                         echo "Yarn version: $(yarn --version)"
                         
-                        # Ajouter les dépendances Nx manquantes
+                        # Installer les dépendances Nx et Angular
                         yarn add -D @nx/workspace @nx/angular @angular/cli nx
+                        
+                        # Vérifier l'installation de Nx et ses plugins
+                        echo "Nx installation:"
+                        yarn nx --version
+                        
+                        echo "Nx Angular plugin:"
+                        yarn list @nx/angular
+                        
+                        # Vérifier la configuration Nx
+                        echo "Nx configuration:"
+                        cat nx.json || echo "nx.json not found"
                         
                         echo "Workspace content:"
                         ls -la
@@ -58,9 +69,11 @@ pipeline {
                         echo "Installing dependencies..."
                         yarn install --immutable 2>&1 | grep -v "warning.*lmdb" || true
                         
-                        echo "Verifying Nx installation:"
-                        yarn nx --version
-                        yarn nx list
+                        echo "Verifying Angular installation:"
+                        yarn ng version
+                        
+                        echo "Verifying Nx workspace:"
+                        yarn nx list @nx/angular
                     '''
                 }
             }
@@ -71,8 +84,10 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
+                        echo "Project configuration:"
+                        cat apps/farming-suite-web/project.json || echo "project.json not found"
                         
-                        # Utiliser yarn nx directement
+                        # Utiliser yarn nx avec le plugin Angular
                         echo "Running nx build..."
                         yarn nx build farming-suite-web --configuration=production --skip-nx-cache
                     '''
