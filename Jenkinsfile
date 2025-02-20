@@ -36,6 +36,10 @@ pipeline {
                     sh '''                       
                         echo "Installing dependencies..."
                         yarn install --immutable 
+
+                        echo "Workspace content:"
+                        ls -la
+                        
                     '''
                 }
             }
@@ -109,12 +113,4 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            deleteDir()
-        }
-        success {
-            echo "Build and push successful! Image available at ${DOCKER_REPO}:${DOCKER_TAG}"
-        }
-    }
 }
