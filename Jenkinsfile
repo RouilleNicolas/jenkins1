@@ -114,4 +114,13 @@ pipeline {
         }
     }
 
+    post {
+        always {
+            deleteDir()
+        }
+        success {
+            echo "Build and push successful! Image available at ${DOCKER_REPO}:${DOCKER_TAG}"
+        }
+    }
+
 }
