@@ -30,6 +30,21 @@ pipeline {
     }
 
     stages {
+        stage('Login to GCP') {
+            steps {
+                container('gcloud-kubectl') {
+                    script {
+                        withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'FILE')]) {
+                            sh """
+                                gcloud auth activate-service-account --key-file=\$FILE
+                                gcloud auth configure-docker gcr.io -q
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Clean and Install Dependencies') {
             steps {
                 container('node') {
@@ -60,7 +75,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build and push Image Docker') {
             steps {
                 container('kaniko') {
                     sh """
@@ -79,23 +94,13 @@ pipeline {
         stage('Verify Image') {
             steps {
                 container('crane') {
-                    sh """
-                        echo "Setting up GCP authentication..."
-                        # Vérifier et corriger le format du fichier de credentials
-                        CREDS_FILE="/home/jenkins/.config/gcloud/application_default_credentials.json"
-                        if [ -f "\${CREDS_FILE}" ]; then
-                            # Supprimer les retours à la ligne et reformater le JSON
-                            cat "\${CREDS_FILE}" | tr -d '\\n' | jq '.' > "\${CREDS_FILE}.tmp"
-                            mv "\${CREDS_FILE}.tmp" "\${CREDS_FILE}"
-                            chmod 600 "\${CREDS_FILE}"
-                        else
-                            echo "Error: Credentials file not found at \${CREDS_FILE}"
-                            exit 1
-                        fi
-                        
-                        echo "Verifying pushed images test1..."
-                        /ko-app/crane ls ${DOCKER_REPO} || true
-                    """
+                    script {
+                        withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'FILE')]) {
+                            sh """
+                                GOOGLE_APPLICATION_CREDENTIALS=\$FILE /ko-app/crane ls ${DOCKER_REPO} || true
+                            """
+                        }
+                    }
                 }
             }
         }
