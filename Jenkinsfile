@@ -33,14 +33,9 @@ pipeline {
         stage('Clean and Install Dependencies') {
             steps {
                 container('node') {
-                    sh '''
-                        echo "Cleaning caches..."
-                        rm -rf .nx || true
-                        rm -rf node_modules/.cache || true
-                        
+                    sh '''                       
                         echo "Installing dependencies..."
                         yarn install --immutable 
-                        
                     '''
                 }
             }
@@ -75,8 +70,11 @@ pipeline {
             steps {
                 container('node') {
                     sh '''
+
+                        echo "Workspace content:"
+                        ls -la
+
                         echo "Building Angular application..."
-                        nx reset  # Reset Nx cache
                         nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
                     '''
                 }
