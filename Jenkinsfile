@@ -5,10 +5,11 @@ pipeline {
         kubernetes {
             cloud 'kubernetes-csuite'
             defaultContainer 'jnlp'
-            label "node"
+            inheritFrom 'jenkins-builder'
+            yamlFile 'podTemplates/angular.yaml'
+            workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: "jenkins-workspace-${env.BRANCH_NAME.replaceAll('[^a-zA-Z0-9-]', '-')}", readOnly: false)
             idleMinutes 30
             instanceCap 3
-            yaml libraryResource('podTemplates/angular.yaml')
             retries 2
         }
     }
