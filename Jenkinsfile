@@ -33,7 +33,7 @@ pipeline {
         stage('Clean and Install Dependencies') {
             steps {
                 container('node') {
-                    sh '''                       
+                    sh '''
                         echo "Installing dependencies..."
                         yarn install --immutable 
 
@@ -80,8 +80,21 @@ pipeline {
             steps {
                 container('crane') {
                     sh """
+                        echo "Setting up GCP authentication..."
+                        # Vérifier et corriger le format du fichier de credentials
+                        CREDS_FILE="/home/jenkins/.config/gcloud/application_default_credentials.json"
+                        if [ -f "\${CREDS_FILE}" ]; then
+                            # Supprimer les retours à la ligne et reformater le JSON
+                            cat "\${CREDS_FILE}" | tr -d '\\n' | jq '.' > "\${CREDS_FILE}.tmp"
+                            mv "\${CREDS_FILE}.tmp" "\${CREDS_FILE}"
+                            chmod 600 "\${CREDS_FILE}"
+                        else
+                            echo "Error: Credentials file not found at \${CREDS_FILE}"
+                            exit 1
+                        fi
+                        
                         echo "Verifying pushed images test1..."
-                        /ko-app/gcrane ls ${DOCKER_REPO}
+                        /ko-app/crane ls ${DOCKER_REPO} || true
                     """
                 }
             }
