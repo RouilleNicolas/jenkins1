@@ -6,7 +6,7 @@ pipeline {
             cloud 'kubernetes-csuite'
             defaultContainer 'jnlp'
             inheritFrom 'jenkins-builder'
-            yamlFile 'podTemplates/angular.yaml'
+            yaml libraryResource('podTemplates/angular.yaml')
             workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: "jenkins-workspace-${env.BRANCH_NAME.replaceAll('[^a-zA-Z0-9-]', '-')}", readOnly: false)
             idleMinutes 30
             instanceCap 3
@@ -98,7 +98,11 @@ pipeline {
 
     post {
         always {
-            deleteDir()
+            script {
+                node('jenkins-builder') {
+                    deleteDir()
+                }
+            }
         }
         success {
             echo "Build and push successful! Image available at ${DOCKER_REPO}:${DOCKER_TAG}"
