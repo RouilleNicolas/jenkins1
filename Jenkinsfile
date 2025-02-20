@@ -22,6 +22,7 @@ pipeline {
         DOCKER_TAG_COMMIT = "${env.BRANCH_NAME}-${env.GIT_COMMIT.take(7)}"
         APP_WORKSPACE = "farming-suite-web"
         GOOGLE_APPLICATION_CREDENTIALS = "/home/jenkins/.config/gcloud/application_default_credentials.json"
+        KANIKO_GOOGLE_APPLICATION_CREDENTIALS = "/secret/kaniko-secret.json"
     }
     
     options {
@@ -91,6 +92,13 @@ pipeline {
             steps {
                 container('kaniko') {
                     sh """
+                        echo "Setting up GCP authentication for Kaniko..."
+                        # Vérifier que les credentials sont présentes
+                        if [ ! -f "\${KANIKO_GOOGLE_APPLICATION_CREDENTIALS}" ]; then
+                            echo "Error: Kaniko credentials file not found at \${KANIKO_GOOGLE_APPLICATION_CREDENTIALS}"
+                            exit 1
+                        fi
+                        
                         echo "Building and pushing Docker image with Kaniko..."
                         /kaniko/executor --context=${WORKSPACE} \
                             --dockerfile=${WORKSPACE}/Dockerfile \
