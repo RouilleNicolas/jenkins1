@@ -29,6 +29,17 @@ pipeline {
     }
 
     stages {
+        stage('Install Dependencies') {
+            steps {
+                container('node') {
+                    sh '''
+                        echo "Installing dependencies..."
+                        yarn install --immutable --inline-builds
+                    '''
+                }
+            }
+        }
+
         stage('Verify Environment') {
             steps {
                 container('node') {
@@ -48,17 +59,6 @@ pipeline {
                         
                         echo "Workspace content:"
                         ls -la
-                    '''
-                }
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                container('node') {
-                    sh '''
-                        echo "Installing dependencies..."
-                        yarn install --immutable --inline-builds
                     '''
                 }
             }
