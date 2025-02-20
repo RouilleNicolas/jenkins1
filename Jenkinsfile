@@ -35,7 +35,10 @@ pipeline {
                     sh '''
                         echo "Node.js version: $(node --version)"
                         echo "Yarn version: $(yarn --version)"
-                        echo "Nx version: $(nx --version || npx nx --version)"
+                        echo "Workspace content:"
+                        ls -la
+                        echo "Package.json content:"
+                        cat package.json
                     '''
                 }
             }
@@ -48,6 +51,13 @@ pipeline {
                         echo "Installing dependencies..."
                         # Ignorer les avertissements de lmdb qui n'affectent pas le fonctionnement
                         yarn install --immutable 2>&1 | grep -v "warning.*lmdb" || true
+                        
+                        echo "Verifying node_modules:"
+                        ls -la node_modules/@nx || echo "No @nx directory found"
+                        ls -la node_modules/@angular || echo "No @angular directory found"
+                        
+                        echo "Checking nx.json:"
+                        cat nx.json || echo "No nx.json found"
                     '''
                 }
             }
@@ -58,7 +68,13 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
-                        npx nx run farming-suite-web:build --configuration=production
+                        echo "Current directory: $(pwd)"
+                        echo "Directory content:"
+                        ls -la
+                        
+                        # Essayer d'exécuter nx directement depuis node_modules
+                        echo "Running nx build..."
+                        ./node_modules/.bin/nx run farming-suite-web:build --configuration=production
                     '''
                 }
             }
