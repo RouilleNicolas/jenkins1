@@ -16,6 +16,7 @@ pipeline {
     environment {
         HUSKY = "0"
         NODE_ENV = "development"
+        LMDB_FORCE_NO_ASSERTIONS = "1"
         DOCKER_REPO = "gcr.io/sandbox-csuite/csuite/angular-csuitev2"
         DOCKER_TAG = "${env.BRANCH_NAME == 'master' ? 'latest' : env.BRANCH_NAME}"
         DOCKER_TAG_COMMIT = "${env.BRANCH_NAME}-${env.GIT_COMMIT.take(7)}"
@@ -29,10 +30,14 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Clean and Install Dependencies') {
             steps {
                 container('node') {
                     sh '''
+                        echo "Cleaning caches..."
+                        rm -rf .nx || true
+                        rm -rf node_modules/.cache || true
+                        
                         echo "Installing dependencies..."
                         yarn install --immutable --inline-builds
                         
@@ -73,6 +78,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Building Angular application..."
+                        yarn nx reset  # Reset Nx cache
                         yarn nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
                     '''
                 }
