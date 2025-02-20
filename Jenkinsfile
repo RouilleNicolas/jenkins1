@@ -39,13 +39,8 @@ pipeline {
                         rm -rf node_modules/.cache || true
                         
                         echo "Installing dependencies..."
-                        yarn install --immutable --inline-builds
+                        yarn install --immutable 
                         
-                        echo "Verifying installed packages..."
-                        yarn why browserslist
-                        yarn list browserslist
-                        yarn list @angular-devkit/build-angular
-                        yarn list ng-packagr
                     '''
                 }
             }
@@ -79,7 +74,7 @@ pipeline {
                     sh '''
                         echo "Building Angular application..."
                         yarn nx reset  # Reset Nx cache
-                        yarn nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
+                        nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
                     '''
                 }
             }
