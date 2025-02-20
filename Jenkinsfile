@@ -8,38 +8,7 @@ pipeline {
             label "node"
             idleMinutes 30
             instanceCap 3
-            yaml '''
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: node
-    image: docker.io/library/node:22-bookworm-slim
-    command:
-    - cat
-    tty: true
-    imagePullPolicy: Always
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - name: jenkins-docker-cfg
-      mountPath: /kaniko/.docker
-  - name: crane
-    image: gcr.io/go-containerregistry/crane:debug
-    command:
-    - cat
-    tty: true
-  volumes:
-  - name: jenkins-docker-cfg
-    secret:
-      secretName: docker-credentials
-      items:
-        - key: .dockerconfigjson
-          path: config.json
-'''
+            yaml libraryResource('podTemplates/angular.yaml')
             retries 2
         }
     }
@@ -65,11 +34,12 @@ spec:
                 container('node') {
                     sh '''
                         echo "Node.js version: $(node --version)"
-                        
-                        # Enable Corepack (for yarn version management)
-                        corepack enable
-                        
                         echo "Yarn version: $(yarn --version)"
+                        
+                        # Vérifier que nous avons la bonne version de Node.js
+                        if [ "$(node --version)" != "v22.0.0" ]; then
+                            echo "Warning: Node.js version mismatch. Expected v22.0.0"
+                        fi
                     '''
                 }
             }
