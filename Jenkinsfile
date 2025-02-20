@@ -67,7 +67,7 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Installing dependencies..."
-                        yarn install --immutable 2>&1 | grep -v -E "warning.*lmdb|warning.*format" || true
+                        yarn install --immutable 1>/dev/null 2>/dev/null || true
                         
                         echo "Verifying Angular installation v2:"
                         yarn ng version
