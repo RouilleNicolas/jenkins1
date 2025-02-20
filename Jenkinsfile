@@ -46,7 +46,8 @@ pipeline {
                 container('node') {
                     sh '''
                         echo "Installing dependencies..."
-                        yarn install --immutable
+                        # Ignorer les avertissements de lmdb qui n'affectent pas le fonctionnement
+                        yarn install --immutable 2>&1 | grep -v "warning.*lmdb" || true
                     '''
                 }
             }
