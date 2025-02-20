@@ -9,7 +9,6 @@
     "generate:client:porcin": "rm -rf projects/fss/modules/porcin/infrastructure/clients/src/lib/open-api && openapi-generator-cli generate --generator-key porcin-v1"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "^0.1901.8",
     "@angular-devkit/build-angular": "19.1.4",
     "@angular-devkit/core": "19.1.4",
     "@angular-devkit/schematics": "19.1.4",
@@ -51,7 +50,6 @@
     "@types/ip": "^1.1.3",
     "@types/jest": "^29.5.12",
     "@types/node": "18.16.9",
-    "@typescript-eslint/parser": "^8.24.1",
     "@typescript-eslint/utils": "^8.13.0",
     "angular-eslint": "19.0.2",
     "autoprefixer": "^10.4.0",
