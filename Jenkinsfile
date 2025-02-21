@@ -88,24 +88,20 @@ pipeline {
                         echo "1. Vérification de l'existence du fichier credentials..."
                         ls -la \${CREDS_FILE}
                         
-                        # 2. Afficher les premiers caractères pour vérifier s'il y a des caractères spéciaux
-                        echo "2. Premiers caractères du fichier (recherche de caractères spéciaux)..."
-                        head -1 \${CREDS_FILE} | xxd
+                        # 2. Nettoyer le JSON en supprimant les retours à la ligne superflus
+                        echo "2. Nettoyage du JSON..."
+                        cat \${CREDS_FILE} | tr -d '\\n' | tr -d '\\r' > /tmp/clean_creds.json
                         
-                        # 3. Vérifier le type de fichier
-                        echo "3. Type de fichier..."
-                        file \${CREDS_FILE}
+                        # 3. Vérifier le résultat
+                        echo "3. Vérification du fichier nettoyé..."
+                        head -1 /tmp/clean_creds.json | xxd
                         
-                        # 4. Vérifier les permissions
-                        echo "4. Permissions du fichier..."
-                        stat \${CREDS_FILE}
+                        # 4. Utiliser le fichier nettoyé
+                        echo "4. Exécution de gcrane avec le fichier nettoyé..."
+                        GOOGLE_APPLICATION_CREDENTIALS=/tmp/clean_creds.json /ko-app/gcrane ls ${DOCKER_REPO}
                         
-                        # 5. Tenter de parser le JSON
-                        echo "5. Tentative de parsing JSON..."
-                        cat \${CREDS_FILE}
-                        
-                        echo "6. Exécution de gcrane..."
-                        /ko-app/gcrane ls ${DOCKER_REPO}
+                        # 5. Nettoyer
+                        rm -f /tmp/clean_creds.json
                     """
                 }
             }
