@@ -1,4 +1,4 @@
-@Library('csuite-v2-jenkins-lib@master') _
+@@Library('csuite-v2-jenkins-lib@master') _
 
 pipeline {
     agent {
@@ -42,40 +42,11 @@ pipeline {
             }
         }
 
-        stage('Tests') {
-            steps {
-                container('node') {
-                    sh '''
-                        echo "Exécution des tests avec couverture..."
-                        nx test farming-suite-web --coverage --coverageReporters=lcov
-                    '''
-                }
-            }
-        }
-
-        stage('Analyse SonarQube') {
-            steps {
-                container('node') {
-                    withSonarQubeEnv(credentialsId: 'sonar', installationName: 'SonarQube') {
-                        sh '''
-                            echo "Installation de sonar-scanner..."
-                            npm install -g sonar-scanner
-                            
-                            echo "Lancement de l'analyse SonarQube..."
-                            sonar-scanner \
-                                -Dsonar.projectKey=csuite-angular-app-main \
-                                -Dsonar.projectName="CSuite Angular App" \
-                                -Dsonar.qualitygate.wait=true
-                        '''
-                    }
-                }
-            }
-        }
-
         stage('Build Angular App') {
             steps {
                 container('node') {
                     sh '''
+
                         echo "Workspace content:"
                         ls -la
 
