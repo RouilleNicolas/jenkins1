@@ -81,7 +81,7 @@ pipeline {
             steps {
                 container('crane') {
                     sh """
-                        echo "Verifying pushed images with gcrane..."
+                        echo "Verifying pushed images with gcrane ..."
                         # Le fichier de credentials est déjà monté par Kubernetes
                         /ko-app/gcrane ls ${DOCKER_REPO}
                     """
