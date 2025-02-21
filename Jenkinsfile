@@ -82,7 +82,29 @@ pipeline {
                 container('crane') {
                     sh """
                         echo "Verifying pushed images with gcrane ..."
-                        # Le fichier de credentials est déjà monté par Kubernetes
+                        CREDS_FILE="/home/jenkins/.config/gcloud/application_default_credentials.json"
+                        
+                        # 1. Vérifier l'existence du fichier
+                        echo "1. Vérification de l'existence du fichier credentials..."
+                        ls -la \${CREDS_FILE}
+                        
+                        # 2. Afficher les premiers caractères pour vérifier s'il y a des caractères spéciaux
+                        echo "2. Premiers caractères du fichier (recherche de caractères spéciaux)..."
+                        head -1 \${CREDS_FILE} | xxd
+                        
+                        # 3. Vérifier le type de fichier
+                        echo "3. Type de fichier..."
+                        file \${CREDS_FILE}
+                        
+                        # 4. Vérifier les permissions
+                        echo "4. Permissions du fichier..."
+                        stat \${CREDS_FILE}
+                        
+                        # 5. Tenter de parser le JSON
+                        echo "5. Tentative de parsing JSON..."
+                        cat \${CREDS_FILE}
+                        
+                        echo "6. Exécution de gcrane..."
                         /ko-app/gcrane ls ${DOCKER_REPO}
                     """
                 }
