@@ -79,7 +79,7 @@ pipeline {
 
         stage('Verify Image') {
             steps {
-                container('crane') {
+                container('crane 1') {
                     sh """
                         echo "Verifying pushed images with gcrane..."
                         # Le fichier de credentials est déjà monté par Kubernetes
