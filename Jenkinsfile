@@ -42,21 +42,6 @@ pipeline {
             }
         }
 
-        stage('Build Angular App') {
-            steps {
-                container('node') {
-                    sh '''
-
-                        echo "Workspace content:"
-                        ls -la
-
-                        echo "Building Angular application..."
-                        nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
-                    '''
-                }
-            }
-        }
-
         stage('Tests') {
             steps {
                 container('node') {
@@ -83,6 +68,20 @@ pipeline {
                                 -Dsonar.qualitygate.wait=true
                         '''
                     }
+                }
+            }
+        }
+
+        stage('Build Angular App') {
+            steps {
+                container('node') {
+                    sh '''
+                        echo "Workspace content:"
+                        ls -la
+
+                        echo "Building Angular application..."
+                        nx build farming-suite-web --configuration=production --skip-nx-cache --verbose
+                    '''
                 }
             }
         }
