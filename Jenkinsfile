@@ -30,20 +30,6 @@ pipeline {
     }
 
     stages {
-        stage('Login to GCP') {
-            steps {
-                container('gcloud-kubectl') {
-                    script {
-                        withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'FILE')]) {
-                            sh """
-                                gcloud auth activate-service-account --key-file=\$FILE
-                                gcloud auth configure-docker gcr.io -q
-                            """
-                        }
-                    }
-                }
-            }
-        }
 
         stage('Clean and Install Dependencies') {
             steps {
