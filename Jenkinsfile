@@ -81,7 +81,7 @@ pipeline {
             steps {
                  container('crane') {
                     sh """
-                        echo "Verifying pushed images avec crane..."
+                        echo "Verifying pushed images avec crane test..."
                         /ko-app/gcrane ls ${DOCKER_REPO}
                     """
                 }
