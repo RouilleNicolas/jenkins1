@@ -93,14 +93,11 @@ pipeline {
 
         stage('Verify Image') {
             steps {
-                container('crane') {
-                    script {
-                        withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'FILE')]) {
-                            sh """
-                                GOOGLE_APPLICATION_CREDENTIALS=\$FILE /ko-app/crane ls ${DOCKER_REPO} || true
-                            """
-                        }
-                    }
+                 container('crane') {
+                    sh """
+                        echo "Verifying pushed images..."
+                        /ko-app/gcrane ls ${DOCKER_REPO}
+                    """
                 }
             }
         }
