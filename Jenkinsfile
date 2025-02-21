@@ -31,7 +31,7 @@ pipeline {
             steps {
                 container('node') {
                     sh '''
-                        echo "Installing dependencies..."
+                        echo "Installing dependencies ..."
                         yarn install --immutable 
 
                         echo "Workspace content:"
